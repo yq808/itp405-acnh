@@ -7,35 +7,45 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <link rel="shortcut icon" type="image/png" href="img/website-icon.png">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="shortcut icon" type="image/png" href="{{url('img/website-icon.png')}}">
+    <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
 
-    <title>Crossing Builds | Home</title>
-
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <title>Crossing Builds | @yield("title")</title>
 </head>
 <body>
     <header>
         <div class="nav-links">
-            <a href="search.html">Search</a>
-            <a href="">Add</a>
+            <a href="">Search</a>
+            <a href="{{ route('build.create') }}">Add</a>
             <a href="">Favorites</a>
         </div>
         <div id="logo">
             <h1>
-                <a href="index.html">Crossing Builds</a>
+                <a href="{{ route('build.index') }}">Crossing Builds</a>
             </h1>
         </div>
         <div class="nav-links">
-            <a href="">Register</a>
-            <a href="">Login</a>
-            <!-- <a href="">Profile</a> -->
+            @if (Auth::check())
+                <a href="{{ route('profile.index') }}">Profile</a>
+                <form method="POST" action="{{ route('auth.logout') }}">
+                    @csrf
+                    <button type="submit" class="btn button-link">Logout</button>
+                </form>
+            @else
+                <a href="{{ route('register.create') }}">Register</a>
+                <a href="{{ route('login') }}">Login</a>
+            @endif
         </div>
     </header>
 
     <div class="content">
-        
+        @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @yield("content")
     </div>
 
     <div class="bottom-nav">
@@ -44,12 +54,12 @@
         </div>
         <div>
             <a href="">Search</a>
-            <a href="">Add</a>
+            <a href="{{ route('build.create') }}">Add</a>
             <a href="">Favorites</a>
         </div>
         <div>
             <a href="">Register</a>
-            <a href="">Login</a>
+            {{-- <a href="{{ route('login') }}">Login</a> --}}
         </div>
     </div>
 

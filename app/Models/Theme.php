@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Theme extends Model
 {
     use HasFactory;
+
+    public function build()
+    {
+        return $this->hasMany(Build::class);
+    }
 }

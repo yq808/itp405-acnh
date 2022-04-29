@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('description', 500);
             $table->foreignId('category_id');
             $table->foreignId('user_id');
-            $table->foreignId('feature_id');
+            $table->foreignId('season_id');
             $table->timestamps();
         });
     }

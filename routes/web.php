@@ -29,30 +29,26 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::middleware(['auth'])->group(function() {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
 
-Route::get('/register', [RegisterController::class, 'index'])->name('registration.index');
-Route::post('/register', [RegisterController::class, 'register'])->name('registration.create');
+Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.create');
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
 Route::get('/', [BuildController::class, 'index'])->name('build.index');
-Route::get('/{id}', [BuildController::class, 'show'])->name('build.show');
+// Route::get('/{id}', [BuildController::class, 'show'])->name('build.show');
 
-Route::get('/new', [BuildController::class, 'create'])->name('build.create');
+Route::get('/builds/new', [BuildController::class, 'create'])->name('build.create');
 Route::post('/', [BuildController::class, 'store'])->name('build.store');
 Route::get('/{id}/edit', [BuildController::class, 'edit'])->name('build.edit');
 Route::post('/{id}', [BuildController::class, 'update'])->name('build.update');
 
-Route::get('/profile/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
-Route::post('/profile', [FavoriteController::class, 'delete'])->name('favorite.delete');
+// Route::get('/profile/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
+// Route::post('/profile', [FavoriteController::class, 'delete'])->name('favorite.delete');
 
 if (env('APP_ENV') !== 'local') {
     URL::forceScheme('https');

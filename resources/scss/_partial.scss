@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=Nanum+Gothic:wght@400;700&display=swap');
 
-@font-face {
-    font-family: "finkheavy";
-    src:url("fonts/finkheavy.ttf");
-}
+// @font-face {
+//     font-family: "finkheavy";
+//     src:url("resources/fonts/finkheavy.ttf");
+// }
 
-@font-face {
-    font-family: "rodin";
-    src:url("fonts/rodin.otf");
-}
+// @font-face {
+//     font-family: "rodin";
+//     src:url("resources/fonts/rodin.otf");
+// }
 
-@font-face {
-    font-family: "humming";
-    src:url("fonts/humming.otf");
-}
+// @font-face {
+//     font-family: "humming";
+//     src:url("resources/fonts/humming.otf");
+// }
 
 // Fonts
 $bodyFont: 'Inter', sans-serif;
@@ -29,5 +29,11 @@ $accent: #ccd5ae;
 $contrast: #f4d35e;
 $darkContrast: #f7b267;
 $grey: #9D9D9D;
-$lightgrey: #F3F3F3;
+$lightGrey: #F3F3F3;
 $black: #555;
+$white: #fff;
+$red: #CF2740;
+$lightBlue: #A8DADC;
+$beige: #fefae0;
+$green: #B8CD59;
+
