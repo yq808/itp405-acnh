@@ -134,10 +134,11 @@ header {
         width: 25%;
         display: flex;
         flex-wrap: wrap;
+        align-content: flex-start;
     }
 
     h3 {
-        font-family: 'finkheavy';
+        font-family: $displayFont;
     }
 
     a {
@@ -177,7 +178,7 @@ header {
         }
 
         button.button-link {
-            all: unset;
+            // all: unset;
             position: relative;
             top: 16px;
             left: 20px;
@@ -279,14 +280,59 @@ header {
 }
 
 .modal {
+    h3 {
+        text-align: center;
+    }
+
     img {
         width: 85%;
         margin: 20px auto;
+        padding: 20px;
         display: block;
+        border: 2px solid $black;
     }
 
     .modal-body {
+        padding: 50px;
+    }
+
+    .submitted-by {
+        text-align: center;
+    }
+
+    .description {
+        font-style: italic;
+        color: $darkAccent;
+        background-color: $lightBlue;
         padding: 30px;
+    }
+
+    .build-tags {
+        display: flex;
+        justify-content: space-around;
+        margin: 30px 0;
+        font-size: 14px;
+
+        p {
+            width: 25%;
+            color: $white;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 0;
+            
+            &:first-child {
+                background-color: $green;
+            }
+
+            &:nth-child(2) {
+                background-color: $darkContrast;
+            }
+
+            &:last-child {
+                background-color: $pink;
+            }
+        }
     }
 }
 
@@ -334,7 +380,7 @@ form {
 
         h6 {
             text-transform: uppercase;
-            color: $darkContrast;
+            color: $green;
             font-weight: bold;
         }
 
@@ -344,6 +390,17 @@ form {
                 font-size: 14px;
             }
         }
+
+        .comment-form {
+            display: flex;
+            justify-content: flex-end;
+            
+
+            form {
+                margin: 0 20px;
+                text-align: right;
+            }
+        } 
     }
 }
 
@@ -355,7 +412,7 @@ form {
     color: #27B3CF;
 }
 
-.nav-links button.button-link {
+button.button-link {
     background-color: none;
     all: unset;
     display: inline;
@@ -379,4 +436,15 @@ form#search-form {
 #form-div {
     width: 80%;
     margin: 20px auto;
+}
+
+.bottom-buttons {
+    display: flex;
+    justify-content: flex-end;
+
+    form {
+        display: inline;
+        margin: 0 20px;
+        text-align: right;
+    }
 }

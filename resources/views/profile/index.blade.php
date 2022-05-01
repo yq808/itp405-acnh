@@ -11,6 +11,11 @@
 @section("content")
 
 <div id="gallery-container">
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
     <div id="heading">
         <h4>
             Your Posts
@@ -20,10 +25,14 @@
         Total Posts: {{ count($isCreators) }}
     </h6>
 <div class="gallery" id="profile-gallery">
+    @if(count($isCreators) == 0)
+        <p>It looks like you have any posts yet! <a href="{{ route('build.create') }}">Add</a> one.</p>
+    @else
     @foreach($isCreators as $isCreator)
     <div class="gallery-box" data-bs-toggle="modal" data-bs-target="#build-{{$isCreator->id}}">
         @if (Auth::check())
             <form action="{{ route('favorite.store', ['id' => $isCreator->id]) }}" method="POST" target="_blank">
+            @csrf
                 <button type="submit" class="btn button button-link button-heart">
                         <i class="fa fa-heart fa-2xl fa-bounce"></i>
                 </button>
@@ -32,6 +41,7 @@
 
         @can('update', $isCreator)
             <form action="{{ route('build.edit', ['id' => $isCreator->id, 'url' => URL::current()]) }}" method="GET">
+            @csrf
                 <button type="submit" class="btn button button-link button-pen">
                     <i class="fa fa-pen fa-2xl fa-bounce"></i>
                 </button>
@@ -41,10 +51,10 @@
             <img src="{{ $isCreator->img_link }}" alt="{{$isCreator->creator_name}}'s build">
         </div>
         <div class="info-container">
-            @if(!$isCreator->created_at)
+            @if(!$isCreator->updated_at)
                 <p>Date: N/A</p>
             @else()
-                <p>{{$isCreator->created_at}}</p>
+                <p>{{ date_format($isCreator->updated_at, 'n/j/Y') }}</p>
             @endif
             @if ($isCreator->theme->id == 1)
                 <p class="red">
@@ -80,17 +90,27 @@
                     </a>
                 </h3>
 
+                <p class="submitted-by">Submitted by {{$isCreator->user->username}}</p>
+
                 <img src="{{ $isCreator->img_link }}" alt="{{$isCreator->creator_name}}'s build">
 
-                <p>Submitted by {{$isCreator->user->username}}</p>
+                <p class="description">{{$isCreator->description}}</p>
 
-                <p>{{$isCreator->description}}</p>
+                <div class="build-tags">
+                    <p>{{ $isCreator->category->category }}</p>
+                    <p>{{ $isCreator->theme->theme }}</p>
+                    <p>{{ $isCreator->season->season }}</p>
+                </div>
 
                 <div class="comments-container">
                     @if (Auth::check())
-                    <form action="" method="POST">
+                    <form action="{{ route('comment.store', ['id' => $isCreator->id]) }}" method="POST">
+                        @csrf
                         <div>
-                            <textarea class="form-control" id="comment" type="text" name="comment" placeholder=""></textarea>
+                            <textarea class="form-control" id="comment" type="text" name="comment" placeholder="">{{ old('comment') }}</textarea>
+                            @error("comment")
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
                         </div>
 
                         <button type="submit" class="btn button"> Comment </button>
@@ -105,18 +125,51 @@
                                 <p>
                                     {{ $comment->comment }}
                                 </p>
-                                <p class="comment-date">Posted on 2/3/2022</p>
+                                <p class="comment-date"><p class="comment-date">Posted on {{ date_format($comment->updated_at, 'n/j/Y') }}</p></p>
+
+                                <div class="comment-form">
+                                    <form action="{{ route('comment.edit', ['id' => $comment->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn button button-link">Edit</button>
+                                    </form>
+                                    <form action="{{ route('comment.delete', ['id' => $comment->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn button button-link">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         @endif
                     @endforeach
                 </div>
 
-                <button class="btn button-link">Button</button>
+                <div class="bottom-buttons">
+                    @if (Auth::check())
+                    <form action="{{ route('favorite.store', ['id' => $isCreator->id]) }}" method="POST" target="_blank">
+                    @csrf
+                        <button type="submit" class="btn button">Favorite</button>
+                    </form>
+                    @endif
+
+                    @can('update', $isCreator)
+                    <form action="{{ route('build.edit', ['id' => $isCreator->id, 'url' => URL::current()]) }}" method="GET">
+                    @csrf
+                        <button type="submit" class="btn button">Edit</button>
+                    </form>
+                    @endcan
+
+                    @can('delete', $isCreator)
+                    <form action="{{ route('build.delete', ['id' => $isCreator->id, 'url' => URL::current()]) }}" method="POST">
+                    @csrf
+                        <button type="submit" class="btn button">Delete</button>
+                    </form>
+                    @endcan
+                </div>
             </div>
           </div>
         </div>
     </div>
     @endforeach
+    @endif
 </div>
 </div>
 

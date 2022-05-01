@@ -8,6 +8,7 @@ use App\Models\Build;
 use App\Models\Category;
 use App\Models\Theme;
 use App\Models\Season;
+use App\Models\User;
 
 use App\Models\Comment;
 
@@ -53,6 +54,42 @@ class ProfileController extends Controller
             'comments' => $comments,
             'user' => Auth::user(),
             'favorites' => $favorites,
+        ]);
+    }
+
+    public function other($id)
+    {
+        // if (!Auth::check()) {
+        //     return redirect()
+        //     ->route('build.index')
+        //     ->with('error', "error");
+        // } elseif (Auth::user()->id == $id) {
+        //     return redirect()->route('profile.index');
+        // }
+
+        if (Auth::user()->id == $id) {
+            return redirect()->route('profile.index');
+        }
+
+        $isCreators = Build::with([
+                'theme',
+                'category',
+                'season',
+                ])
+                ->where('user_id', '=', $id)
+                ->orderBy('updated_at', 'desc')
+                ->get();
+
+        $comments = Comment::with(['build', 'user'])
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+        $user = User::find($id);
+        
+        return view('profile.other', [
+            'isCreators' => $isCreators,
+            'comments' => $comments,
+            'user' => $user,
         ]);
     }
 }

@@ -44,11 +44,11 @@
     </header>
 
     <div class="content">
-        @if (session('error'))
+        {{-- @if (session('error'))
             <div class="alert alert-danger" role="alert">
                 {{ session('error') }}
             </div>
-        @endif
+        @endif --}}
 
         @yield("content")
     </div>

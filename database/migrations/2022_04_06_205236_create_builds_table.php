@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('img_link');
             $table->string('creator_name');
-            $table->string('creator_link')->nullable();
+            $table->string('creator_link');
             $table->foreignId('theme_id');
             $table->string('description', 500);
             $table->foreignId('category_id');

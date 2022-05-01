@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\Theme;
 use App\Models\Season;
 use App\Models\Comment;
+use App\Models\Favorite;
+use Auth;
 
 class BuildController extends Controller
 {
@@ -21,13 +23,34 @@ class BuildController extends Controller
                 ->take(9)
                 ->get();
 
+        // $builds;
+
+        // if (Auth::check()) {
+        //     $builds = Build::with(['category', 'theme', 'season', 'favorite']);
+        // } else {
+        //     $builds = Build::with(['category', 'theme', 'season']);
+        // }
+
+        // $builds = $builds->orderBy('created_at', 'desc')
+        //         ->take(9)
+        //         ->get();
+
         $comments = Comment::with(['build', 'user'])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->get();
-        
+
+        // $isFavorite;
+
+        // if (Auth::check()) {
+        //     $isFavorite = Build::with(['favorite'])
+        //             ->where('favorite.user_id', '=', Auth::user()->id)
+        //             ->get();
+        // }
+
         return view('build.index', [
             'builds' => $builds,
             'comments' => $comments,
+            // 'isFavorite' => $isFavorite,
         ]);
     }
 
@@ -44,7 +67,7 @@ class BuildController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(Request $request)
     {
         $request->validate([
             'image-link' => 'required|url|unique:builds,img_link',
@@ -65,6 +88,7 @@ class BuildController extends Controller
         $build->theme()->associate(Theme::find($request->input('theme')));
         $build->category()->associate(Category::find($request->input('category')));
         $build->season()->associate(Season::find($request->input('season')));
+        $build->user_id = Auth::user()->id;
 
         $build->save();
 
@@ -97,7 +121,7 @@ class BuildController extends Controller
     public function update($id, Request $request)
     {
         $request->validate([
-            'image-link' => 'required|url|unique:builds,img_link',
+            'image-link' => 'required|url',
             'creator-name' => 'required',
             'creator-link' => 'required|url',
             'description' => 'required|min:5|max:500',
@@ -178,5 +202,16 @@ class BuildController extends Controller
             'builds' => $builds,
             'comments' => $comments,
         ]);
+    }
+
+    public function delete($id)
+    {
+        $build = Build::find($id);
+
+        $build->delete();
+
+        return redirect()
+        ->route('profile.index')
+        ->with('success', "Build successfully deleted.");
     }
 }

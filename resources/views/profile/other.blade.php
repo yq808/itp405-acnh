@@ -1,75 +1,76 @@
 @extends("layouts.main")
 
-@section("title", "Search Results")
+@section("unique-css")
+    <link href="{{ asset('css/profile.css') }}" type="text/css" rel="stylesheet">
+@endsection
+
+@section("title")
+    {{ $user->username }}'s Profile
+@endsection
 
 @section("content")
-<div class="block">
+
+<div id="gallery-container">
     <div id="heading">
         <h4>
-            Search Results
+            {{ $user->username }}'s Posts
         </h4>
     </div>
-
-    {{-- <div class="build-tags">
-        <p></p>
-        <p></p>
-        <p></p>
-    </div> --}}
-
-<div class="gallery" id="new-gallery">
-    @if (count($builds) == 0)
-        <p>There were no builds with your specifications.</p>
+    <h6 class="capsule">
+        Total Posts: {{ count($isCreators) }}
+    </h6>
+<div class="gallery" id="profile-gallery">
+    @if(count($isCreators) == 0)
+        <p>It looks like this user doesn't have any posts yet! Check back later. </p>
     @else
-    @foreach($builds as $build)
-    <div class="gallery-box" data-bs-toggle="modal" data-bs-target="#build-{{$build->id}}">
+    @foreach($isCreators as $isCreator)
+    <div class="gallery-box" data-bs-toggle="modal" data-bs-target="#build-{{$isCreator->id}}">
         @if (Auth::check())
-            <form action="{{ route('favorite.store', ['id' => $build->id]) }}" method="POST" target="_blank">
-            @csrf
+            <form action="{{ route('favorite.store', ['id' => $isCreator->id]) }}" method="POST" target="_blank">
                 <button type="submit" class="btn button button-link button-heart">
                         <i class="fa fa-heart fa-2xl fa-bounce"></i>
                 </button>
             </form>
         @endcan
 
-        @can('update', $build)
-            <form action="{{ route('build.edit', ['id' => $build->id, 'url' => URL::current()]) }}" method="GET">
-            @csrf
+        @can('update', $isCreator)
+            <form action="{{ route('build.edit', ['id' => $isCreator->id, 'url' => URL::current()]) }}" method="GET">
                 <button type="submit" class="btn button button-link button-pen">
                     <i class="fa fa-pen fa-2xl fa-bounce"></i>
                 </button>
             </form>
         @endcan
         <div class="img-container">
-            <img src="{{$build->img_link}}" alt="{{$build->creator_name}}'s build">
+            <img src="{{ $isCreator->img_link }}" alt="{{$isCreator->creator_name}}'s build">
         </div>
         <div class="info-container">
-            @if(!$build->created_at)
+            @if(!$isCreator->created_at)
                 <p>Date: N/A</p>
             @else()
-                <p>{{$build->created_at}}</p>
+                <p>{{$isCreator->created_at}}</p>
             @endif
-            @if ($build->theme->id == 1)
+            @if ($isCreator->theme->id == 1)
                 <p class="red">
-            @elseif ($build->theme->id == 2)
+            @elseif ($isCreator->theme->id == 2)
                 <p class="orange">
-            @elseif ($build->theme->id == 3)
+            @elseif ($isCreator->theme->id == 3)
                 <p class="yellow">
-            @elseif ($build->theme->id == 4)
+            @elseif ($isCreator->theme->id == 4)
                 <p class="green">
-            @elseif ($build->theme->id == 5)
+            @elseif ($isCreator->theme->id == 5)
                 <p class="lightblue">
-            @elseif ($build->theme->id == 6)
+            @elseif ($isCreator->theme->id == 6)
                 <p class="darkblue">
-            @elseif ($build->theme->id == 7)
+            @elseif ($isCreator->theme->id == 7)
                 <p class="purple">
-            @elseif ($build->theme->id == 8)
+            @elseif ($isCreator->theme->id == 8)
                 <p class="pink">
             @endif
-            {{$build->theme->theme}}</p>
+            {{$isCreator->theme->theme}}</p>
         </div>
     </div>
 
-    <div class="modal fade" id="build-{{$build->id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal fade" id="build-{{$isCreator->id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
         {{-- {{$build->creator_name}}- --}}
         <div class="modal-dialog modal-dialog-centered modal-lg">
           <div class="modal-content">
@@ -77,29 +78,28 @@
                 <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
 
                 <h3>Build by 
-                    <a href="{{$build->creator_link}}" target="_blank">
-                        {{$build->creator_name}}
+                    <a href="{{$isCreator->creator_link}}" target="_blank">
+                        {{$isCreator->creator_name}}
                     </a>
                 </h3>
+                
+                <p class="submitted-by">Submitted by {{ $user->username }}</p>
 
-                <p class="submitted-by">Submitted by {{$build->user->username}}</p>
+                <img src="{{ $isCreator->img_link }}" alt="{{$isCreator->creator_name}}'s build">
 
-                <img src="{{$build->img_link}}" alt="{{$build->creator_name}}'s build">
-
-                <p class="description">{{$build->description}}</p>
+                <p class="description">{{$isCreator->description}}</p>
 
                 <div class="build-tags">
-                    <p>{{ $build->category->category }}</p>
-                    <p>{{ $build->theme->theme }}</p>
-                    <p>{{ $build->season->season }}</p>
+                    <p>{{ $isCreator->category->category }}</p>
+                    <p>{{ $isCreator->theme->theme }}</p>
+                    <p>{{ $isCreator->season->season }}</p>
                 </div>
 
                 <div class="comments-container">
                     @if (Auth::check())
-                    <form action="{{ route('comment.store', ['id' => $build->id]) }}" method="POST">
-                        @csrf
+                    <form action="" method="POST">
                         <div>
-                            <textarea class="form-control" id="comment" type="text" name="comment" placeholder="">{{ old('comment') }}</textarea>
+                            <textarea class="form-control" id="comment" type="text" name="comment" placeholder=""></textarea>
                             @error("comment")
                                 <small class="text-danger">{{$message}}</small>
                             @enderror
@@ -111,7 +111,7 @@
                     <p>Want to leave a comment? <a href="{{ route('login') }}">Login</a> or <a href="{{ route('register.create') }}">register</a> first!</p>
                     @endif
                     @foreach($comments as $comment)
-                        @if ($comment->build_id == $build->id)
+                        @if ($comment->build_id == $isCreator->id)
                             <div class="comment">
                                 <h6>{{ $comment->user->username }}</h6>
                                 <p>
@@ -134,35 +134,25 @@
                     @endforeach
                 </div>
 
-                <div class="bottom-buttons">
-                    @if (Auth::check())
-                    <form action="{{ route('favorite.store', ['id' => $build->id]) }}" method="POST" target="_blank">
-                    @csrf
-                        <button type="submit" class="btn button">Favorite</button>
-                    </form>
-                    @endif
-
-                    @can('update', $build)
-                    <form action="{{ route('build.edit', ['id' => $build->id, 'url' => URL::current()]) }}" method="GET">
-                    @csrf
-                        <button type="submit" class="btn button">Edit</button>
-                    </form>
-                    @endcan
-
-                    @can('delete', $build)
-                    <form action="{{ route('build.delete', ['id' => $build->id, 'url' => URL::current()]) }}" method="POST">
-                    @csrf
-                        <button type="submit" class="btn button">Delete</button>
-                    </form>
-                    @endcan
-                </div>
+                <button class="btn">Button</button>
             </div>
           </div>
         </div>
     </div>
-
     @endforeach
     @endif
 </div>
+</div>
+
+<div id="profile-info">
+    <div class="profile-img">
+        <img src="{{ asset('img/gyroid.png')}}" alt="">
+    </div>
+
+    <h4>{{ $user->username }}</h4>
+
+    <p>{{ $user->email }}</p>
+
+    <a href="{{ route('profile.index') }}">Posts <span class="capsule">{{ count($isCreators) }}</span></a>
 </div>
 @endsection

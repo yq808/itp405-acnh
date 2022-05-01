@@ -11,6 +11,16 @@
 @section("content")
 
 <div id="gallery-container">
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-warning" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
     <div id="heading">
         <h4>
             Favorites
@@ -20,18 +30,23 @@
         Total Posts: {{ count($favorites) }}
     </h6>
 <div class="gallery" id="profile-gallery">
+    @if(count($favorites) == 0)
+        <p>It looks like you don't have any favorites yet! <a href="{{ route('build.index') }}">Browse</a>.</p>
+    @else
     @foreach($favorites as $favorite)
     <div class="gallery-box" data-bs-toggle="modal" data-bs-target="#build-{{$favorite->build->id}}">
         @if (Auth::check())
-            <form action="{{ route('favorite.store', ['id' => $favorite->build->id]) }}" method="POST" target="_blank">
+            <form action="{{ route('favorite.delete', ['id' => $favorite->id]) }}" method="POST">
+            @csrf
                 <button type="submit" class="btn button button-link button-heart">
-                        <i class="fa fa-heart fa-2xl fa-bounce"></i>
+                        <i class="fa-solid fa-heart-crack fa-2xl fa-bounce"></i>
                 </button>
             </form>
         @endcan
 
         @can('update', $favorite)
-            <form action="{{ route('build.edit', ['id' => $favorite->build->id, 'url' => URL::current()]) }}" method="GET">
+            <form action="{{ route('build.edit', ['id' => $favorite->build->id]) }}" method="GET">
+            @csrf
                 <button type="submit" class="btn button button-link button-pen">
                     <i class="fa fa-pen fa-2xl fa-bounce"></i>
                 </button>
@@ -41,10 +56,10 @@
             <img src="{{ $favorite->build->img_link }}" alt="{{$favorite->build->creator_name}}'s build">
         </div>
         <div class="info-container">
-            @if(!$favorite->build->created_at)
+            @if(!$favorite->build->updated_at)
                 <p>Date: N/A</p>
             @else()
-                <p>{{$favorite->build->created_at}}</p>
+                <p>{{ date_format($favorite->build->updated_at, 'n/j/Y') }}</p>
             @endif
             @if ($favorite->build->theme->id == 1)
                 <p class="red">
@@ -80,17 +95,27 @@
                     </a>
                 </h3>
 
+                <p class="submitted-by">Submitted by <a href="{{ route('profile.other', ['id' => $favorite->build->user->id]) }}">{{$favorite->user->username}}</a></p>
+
                 <img src="{{ $favorite->build->img_link }}" alt="{{$favorite->build->creator_name}}'s build">
 
-                <p>Submitted by {{$favorite->user->username}}</p>
+                <p class="description">{{$favorite->build->description}}</p>
 
-                <p>{{$favorite->build->description}}</p>
+                <div class="build-tags">
+                    <p>{{ $favorite->build->category->category }}</p>
+                    <p>{{ $favorite->build->theme->theme }}</p>
+                    <p>{{ $favorite->build->season->season }}</p>
+                </div>
 
                 <div class="comments-container">
                     @if (Auth::check())
-                    <form action="" method="POST">
+                    <form action="{{ route('comment.store', ['id' => $favorite->build->id]) }}" method="POST">
+                        @csrf
                         <div>
-                            <textarea class="form-control" id="comment" type="text" name="comment" placeholder=""></textarea>
+                            <textarea class="form-control" id="comment" type="text" name="comment" placeholder="">{{ old('comment') }}</textarea>
+                            @error("comment")
+                                <small class="text-danger">{{$message}}</small>
+                            @enderror
                         </div>
 
                         <button type="submit" class="btn button"> Comment </button>
@@ -105,18 +130,51 @@
                                 <p>
                                     {{ $comment->comment }}
                                 </p>
-                                <p class="comment-date">Posted on 2/3/2022</p>
+                                <p class="comment-date">Posted on {{ date_format($comment->updated_at, 'n/j/Y') }}</p>
+
+                                <div class="comment-form">
+                                    <form action="{{ route('comment.edit', ['id' => $comment->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn button button-link">Edit</button>
+                                    </form>
+                                    <form action="{{ route('comment.delete', ['id' => $comment->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn button button-link">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         @endif
                     @endforeach
                 </div>
 
-                <button class="btn button-link">Button</button>
+                <div class="bottom-buttons">
+                    @if (Auth::check())
+                    <form action="{{ route('favorite.delete', ['id' => $favorite->id]) }}" method="POST">
+                    @csrf
+                        <button type="submit" class="btn button">Favorite</button>
+                    </form>
+                    @endif
+
+                    @can('update', $favorite->build)
+                    <form action="{{ route('build.edit', ['id' => $favorite->build->id, 'url' => URL::current()]) }}" method="GET">
+                    @csrf
+                        <button type="submit" class="btn button">Edit</button>
+                    </form>
+                    @endcan
+
+                    @can('delete', $favorite->build)
+                    <form action="{{ route('build.delete', ['id' => $favorite->build->id, 'url' => URL::current()]) }}" method="POST">
+                    @csrf
+                        <button type="submit" class="btn button">Delete</button>
+                    </form>
+                    @endcan
+                </div>
             </div>
           </div>
         </div>
     </div>
     @endforeach
+    @endif
 </div>
 </div>
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\BuildController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CommentController;
 
 use Illuminate\Support\Facades\URL;
 
@@ -35,6 +36,8 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
 
+Route::get('/profile/{id}', [ProfileController::class, 'other'])->name('profile.other');
+
 Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.create');
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
@@ -48,13 +51,17 @@ Route::get('/results', [BuildController::class, 'result'])->name('build.result')
 Route::get('/builds/new', [BuildController::class, 'create'])->name('build.create');
 Route::post('/', [BuildController::class, 'store'])->name('build.store');
 Route::get('/{id}/edit', [BuildController::class, 'edit'])->name('build.edit');
-Route::post('/{id}', [BuildController::class, 'update'])->name('build.update');
+Route::post('/builds/{id}', [BuildController::class, 'update'])->name('build.update');
+Route::post('/builds/delete/{id}', [BuildController::class, 'delete'])->name('build.delete');
 
-Route::post('/profile/favorites', [FavoriteController::class, 'store'])->name('favorite.store');
-Route::get('/profile/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
+Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
+Route::post('/favorites/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
+Route::post('/favorites/delete/{id}', [FavoriteController::class, 'delete'])->name('favorite.delete');
 // Route::post('/profile', [FavoriteController::class, 'delete'])->name('favorite.delete');
 
-// Route::post('/profile', [CommentController::class])
+Route::post('/comments/{id}', [CommentController::class, 'store'])->name('comment.store');
+Route::post('/comments/edit/{id}', [CommentController::class, 'edit'])->name('comment.edit');
+Route::post('/comments/delete/{id}', [CommentController::class, 'delete'])->name('comment.delete');
 
 if (env('APP_ENV') !== 'local') {
     URL::forceScheme('https');

@@ -19,29 +19,39 @@
 </div>
 
 <form action="{{ route('build.update', ['id' => $build->id]) }}" method="POST">
+    @csrf
     <div class="image-flex">
         <div>
             <img src="{{ $build->img_link }}" alt="current image for {{ $build->creator_name}}'s build">
         </div>
         <div>
             <label class="form-label" for="image-link"> Image Link </label>
-            <textarea class="form-control" id="image-link" type="text" name="image link" value="" placeholder="">{{ old('image-link', $build->img_link) }}</textarea>
+            <textarea class="form-control" id="image-link" type="text" name="image-link" value="{{ old('image-link', $build->img_link) }}" placeholder="">{{ old('image-link', $build->img_link) }}</textarea>
+            @error("image-link")
+                <small class="text-danger">{{$message}}</small>
+            @enderror
         </div>
     </div>
     <div>
         <label class="form-label" for="creator-name"> Creator Name </label>
-        <input class="form-control" id="creator-name" type="text" name="creator name" value="{{ old('creator-name', $build->creator_name)}}" placeholder="">
-        {{-- <!-- @error("title")
+        <input class="form-control" id="creator-name" type="text" name="creator-name" value="{{ old('creator-name', $build->creator_name)}}" placeholder="">
+        @error("creator-name")
             <small class="text-danger">{{$message}}</small>
-        @enderror --> --}}
+        @enderror
     </div>
     <div>
         <label class="form-label" for="creator-link"> Creator Link </label>
-        <input class="form-control" id="creator-link" type="text" name="creator link" value="{{ old('creator-link', $build->creator_link)}}" placeholder="">
+        <input class="form-control" id="creator-link" type="text" name="creator-link" value="{{ old('creator-link', $build->creator_link)}}" placeholder="">
+        @error("creator-link")
+            <small class="text-danger">{{$message}}</small>
+        @enderror
     </div>
     <div>
-        <label class="form-label" for="desription"> Description </label>
-        <textarea class="form-control" id="desription" type="text" name="description" value="" placeholder="">{{ old('description', $build->description)}}</textarea>
+        <label class="form-label" for="description"> Description </label>
+        <textarea class="form-control" id="description" type="text" name="description" value="" placeholder="">{{ old('description', $build->description)}}</textarea>
+        @error("description")
+            <small class="text-danger">{{$message}}</small>
+        @enderror
     </div>
 
     <div>
@@ -55,9 +65,9 @@
                 </option>
             @endforeach
         </select>
-        {{-- <!-- @error("theme")
+        @error("theme")
             <small class="text-danger">{{$message}}</small>
-        @enderror --> --}}
+        @enderror
     </div>
 
     <div>
@@ -71,9 +81,9 @@
                 </option>
             @endforeach
         </select>
-        {{-- <!-- @error("category")
+        @error("category")
             <small class="text-danger">{{$message}}</small>
-        @enderror --> --}}
+        @enderror
     </div>
 
     <div>
@@ -82,14 +92,14 @@
             <option value="">-- Select Season --</option>
 
             @foreach ($seasons as $season)
-                <option value="{{$season->id}}" {{ (string) $season->id === (string) old('theme', $build->theme_id) ? "selected" : "" }}>
+                <option value="{{$season->id}}" {{ (string) $season->id === (string) old('season', $build->season_id) ? "selected" : "" }}>
                     {{$season->season}}
                 </option>
             @endforeach
         </select>
-        {{-- <!-- @error("season")
+        @error("season")
             <small class="text-danger">{{$message}}</small>
-        @enderror --> --}}
+        @enderror
     </div>
 
     <button type="submit" class="btn button"> Submit </button>

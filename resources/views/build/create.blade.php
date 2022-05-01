@@ -13,24 +13,34 @@
 </div>
 
 <form action="{{ route('build.store') }}" method="POST" id="search-form">
+    @csrf
     <div>
         <label class="form-label" for="image-link"> Image Link </label>
-        <textarea class="form-control" id="image-link" type="text" name="image link" placeholder=""></textarea>
+        <textarea class="form-control" id="image-link" type="text" name="image-link">{{ old('image-link') }}</textarea>
+        @error("image-link")
+            <small class="text-danger">{{$message}}</small>
+        @enderror
     </div>
     <div>
         <label class="form-label" for="creator-name"> Creator Name </label>
-        <input class="form-control" id="creator-name" type="text" name="creator name" placeholder="">
-        {{-- <!-- @error("title")
+        <input class="form-control" id="creator-name" type="text" name="creator-name" value="{{ old('creator-name') }}">
+        @error("creator-name")
             <small class="text-danger">{{$message}}</small>
-        @enderror --> --}}
+        @enderror
     </div>
     <div>
         <label class="form-label" for="creator-link"> Creator Link </label>
-        <input class="form-control" id="creator-link" type="text" name="creator link" placeholder="">
+        <input class="form-control" id="creator-link" type="text" name="creator-link" value="{{ old('creator-link') }}">
+        @error("creator-link")
+            <small class="text-danger">{{$message}}</small>
+        @enderror
     </div>
     <div>
         <label class="form-label" for="description"> Description </label>
-        <textarea class="form-control" id="description" type="text" name="description" placeholder=""></textarea>
+        <textarea class="form-control" id="description" type="text" name="description">{{ old('description') }}</textarea>
+        @error("description")
+            <small class="text-danger">{{$message}}</small>
+        @enderror
     </div>
 
     <div>
@@ -44,9 +54,9 @@
                 </option>
             @endforeach
         </select>
-        {{-- <!-- @error("theme")
+        @error("theme")
             <small class="text-danger">{{$message}}</small>
-        @enderror --> --}}
+        @enderror
     </div>
 
     <div>
@@ -60,9 +70,9 @@
                 </option>
             @endforeach
         </select>
-        {{-- <!-- @error("category")
+        @error("category")
             <small class="text-danger">{{$message}}</small>
-        @enderror --> --}}
+        @enderror
     </div>
 
     <div>
@@ -76,9 +86,9 @@
                 </option>
             @endforeach
         </select>
-        {{-- <!-- @error("season")
+        @error("season")
             <small class="text-danger">{{$message}}</small>
-        @enderror --> --}}
+        @enderror
     </div>
 
     <button type="submit" class="btn button"> Submit </button>
