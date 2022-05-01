@@ -1,3 +1,6 @@
 {
-    "/css/app.css": "/css/app.css"
+    "/css/index.css": "/css/index.css",
+    "/css/profile.css": "/css/profile.css",
+    "/css/app.css": "/css/app.css",
+    "/css/editform.css": "/css/editform.css"
 }

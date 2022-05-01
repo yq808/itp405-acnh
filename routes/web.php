@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuildController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\FavoriteController;
 
 use Illuminate\Support\Facades\URL;
 
@@ -40,6 +41,8 @@ Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
 Route::get('/', [BuildController::class, 'index'])->name('build.index');
+Route::get('/search', [BuildController::class, 'search'])->name('build.search');
+Route::get('/results', [BuildController::class, 'result'])->name('build.result');
 // Route::get('/{id}', [BuildController::class, 'show'])->name('build.show');
 
 Route::get('/builds/new', [BuildController::class, 'create'])->name('build.create');
@@ -47,8 +50,11 @@ Route::post('/', [BuildController::class, 'store'])->name('build.store');
 Route::get('/{id}/edit', [BuildController::class, 'edit'])->name('build.edit');
 Route::post('/{id}', [BuildController::class, 'update'])->name('build.update');
 
-// Route::get('/profile/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
+Route::post('/profile/favorites', [FavoriteController::class, 'store'])->name('favorite.store');
+Route::get('/profile/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
 // Route::post('/profile', [FavoriteController::class, 'delete'])->name('favorite.delete');
+
+// Route::post('/profile', [CommentController::class])
 
 if (env('APP_ENV') !== 'local') {
     URL::forceScheme('https');

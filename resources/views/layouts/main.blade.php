@@ -9,15 +9,20 @@
 
     <link rel="shortcut icon" type="image/png" href="{{url('img/website-icon.png')}}">
     <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
+    @yield("unique-css")
 
     <title>Crossing Builds | @yield("title")</title>
 </head>
 <body>
     <header>
         <div class="nav-links">
-            <a href="">Search</a>
-            <a href="{{ route('build.create') }}">Add</a>
-            <a href="">Favorites</a>
+            <a href="{{ route('build.search') }}">Search</a>
+            @if (Auth::check())
+                <a href="{{ route('build.create') }}">Add</a>
+            @endif
+            @if (Auth::check())
+                <a href="{{ route('favorite.index') }}">Favorites</a>
+            @endif
         </div>
         <div id="logo">
             <h1>
@@ -26,7 +31,7 @@
         </div>
         <div class="nav-links">
             @if (Auth::check())
-                <a href="{{ route('profile.index') }}">Profile</a>
+                <a href="{{ route('profile.index') }}">{{ Auth::user()->username }}</a>
                 <form method="POST" action="{{ route('auth.logout') }}">
                     @csrf
                     <button type="submit" class="btn button-link">Logout</button>
@@ -53,13 +58,17 @@
             <h3>Crossing Builds</h3>
         </div>
         <div>
-            <a href="">Search</a>
-            <a href="{{ route('build.create') }}">Add</a>
-            <a href="">Favorites</a>
+            <a href="{{ route('build.search') }}">Search</a>
+            @if (Auth::check())
+                <a href="{{ route('build.create') }}">Add</a>
+            @endif
+            @if (Auth::check())
+                <a href="{{ route('favorite.index') }}">Favorites</a>
+            @endif
         </div>
         <div>
-            <a href="">Register</a>
-            {{-- <a href="{{ route('login') }}">Login</a> --}}
+            <a href="{{ route('register.create') }}">Register</a>
+            <a href="{{ route('login') }}">Login</a>
         </div>
     </div>
 
@@ -70,5 +79,6 @@
 
     <script src="https://kit.fontawesome.com/263c3a4efc.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    @yield("optional-js")
 </body>
 </html>

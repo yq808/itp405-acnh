@@ -28,4 +28,14 @@ class Build extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function favorite()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

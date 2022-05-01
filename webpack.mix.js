@@ -17,3 +17,9 @@ const mix = require('laravel-mix');
 //     ]);
 
 mix.sass('resources/scss/app.scss', 'public/css');
+
+mix.sass('resources/scss/profile.scss', 'public/css');
+
+mix.sass('resources/scss/index.scss', 'public/css');
+
+mix.sass('resources/scss/editform.scss', 'public/css')

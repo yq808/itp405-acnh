@@ -8,20 +8,26 @@ use App\Models\Build;
 use App\Models\Category;
 use App\Models\Theme;
 use App\Models\Season;
+use App\Models\Comment;
 
 class BuildController extends Controller
 {
     public function index()
     {
         $builds = Build::with([
-                    'category', 'theme', 'season',
+                    'category', 'theme', 'season'
                     ])
-                ->orderBy('id', 'desc')
-                ->take(15)
+                ->orderBy('created_at', 'desc')
+                ->take(9)
                 ->get();
+
+        $comments = Comment::with(['build', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->get();
         
         return view('build.index', [
             'builds' => $builds,
+            'comments' => $comments,
         ]);
     }
 
@@ -78,6 +84,8 @@ class BuildController extends Controller
         $categories = Category::all();
         $seasons = Season::all();
 
+        $this->authorize('update', $build);
+
         return view ('build.edit', [
             'build' => $build,
             'themes' => $themes,
@@ -111,8 +119,64 @@ class BuildController extends Controller
 
         $build->save();
 
+        $this->authorize('update', $build);
+
         return redirect()
             ->route('build.index')
             ->with('success', "Successfully updated the build!");
+    }
+
+    public function search()
+    {
+        $themes = Theme::all();
+        $categories = Category::all();
+        $seasons = Season::all();
+
+        return view('build.search', [
+            'themes' => $themes,
+            'categories' => $categories,
+            'seasons' => $seasons,
+        ]);
+    }
+
+    public function result(Request $request)
+    {
+        // $request->validate([
+        //     'theme' => 'exists:themes,id',
+        //     'category' => 'exists:categories,id',
+        //     'season' => 'exists:seasons,id',
+        // ]);
+
+        $builds = Build::with([
+            'category', 'theme', 'season',
+            ])
+        ->orderBy('id', 'desc');
+
+        if($request->input('category')) {
+            $builds->where('category_id', '=', $request->input('category'));
+        }
+
+        // dd($request->input('category'));
+
+        if($request->input('theme')) {
+            $builds->where('theme_id', '=',  $request->input('theme'));
+        }
+
+        if($request->input('season')) {
+            $builds->where('season_id', '=',  $request->input('season'));
+        }
+
+        // $builds->get();
+
+        $builds = $builds->get();
+
+        $comments = Comment::with(['build', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('build.result', [
+            'builds' => $builds,
+            'comments' => $comments,
+        ]);
     }
 }

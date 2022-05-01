@@ -1,0 +1,16 @@
+form .image-flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+form .image-flex div {
+  width: 48%;
+  overflow: hidden;
+}
+form .image-flex div:first-child() {
+  height: 300px;
+}
+form .image-flex div img {
+  width: 100%;
+  height: auto;
+}

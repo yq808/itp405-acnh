@@ -1,0 +1,78 @@
+@import "partial";
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+#gallery-container {
+    width: 70%;
+
+    #profile-gallery .gallery-box {
+        width: 48%;
+    }
+}
+
+#profile-info {
+    width: 25%;
+    text-align: center;
+    /* border: 1px solid #CCC; */
+    border-radius: 15px;
+    background-color: $lightAccent;
+    margin-top: 100px;
+    padding: 70px 0;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    div img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+
+    .profile-img {
+        border-radius: 50%;
+        background-color: $contrast;
+        width: 130px;
+        height: 130px;
+        margin: 0 auto 40px auto;
+    }
+
+    a {
+        margin: 10px 0;
+    }
+
+    button.button-link {
+        background-color: none;
+        all: unset;
+        display: inline;
+        cursor: pointer;
+    
+        &:hover {
+            color: $red;
+            transition: .3s 0s ease-in-out;
+        }
+    }
+
+    form {
+        margin-top: 30px;
+    }
+}
+
+#logout {
+    margin-top: 80px;
+}
+
+.capsule {
+    background-color: $darkContrast;
+    display: inline-block;
+    color: $white;
+    padding: 7px 10px;
+    border-radius: 5px;
+}
+
+span.capsule {
+    font-size: 15px;
+}

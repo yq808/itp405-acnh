@@ -1,0 +1,19 @@
+form .image-flex {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    div {
+        width: 48%;
+        overflow: hidden;
+
+        &:first-child() {
+            height: 300px;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}

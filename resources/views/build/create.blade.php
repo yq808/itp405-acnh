@@ -4,10 +4,18 @@
 
 @section("content")
 
-<form action="{{ route('build.store') }}" method="POST">
+<div id="form-div">
+
+<div id="heading">
+    <h4>
+        Create Build
+    </h4>
+</div>
+
+<form action="{{ route('build.store') }}" method="POST" id="search-form">
     <div>
         <label class="form-label" for="image-link"> Image Link </label>
-        <input class="form-control" id="image-link" type="text" name="image link" placeholder="">
+        <textarea class="form-control" id="image-link" type="text" name="image link" placeholder=""></textarea>
     </div>
     <div>
         <label class="form-label" for="creator-name"> Creator Name </label>
@@ -21,8 +29,8 @@
         <input class="form-control" id="creator-link" type="text" name="creator link" placeholder="">
     </div>
     <div>
-        <label class="form-label" for="desription"> Description </label>
-        <textarea class="form-control" id="desription" type="text" name="description" placeholder=""></textarea>
+        <label class="form-label" for="description"> Description </label>
+        <textarea class="form-control" id="description" type="text" name="description" placeholder=""></textarea>
     </div>
 
     <div>
@@ -76,5 +84,7 @@
     <button type="submit" class="btn button"> Submit </button>
     <button type="reset" class="btn button"> Reset </button>
 </form>
+
+</div>
 
 @endsection

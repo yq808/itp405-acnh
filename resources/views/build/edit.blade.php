@@ -1,15 +1,32 @@
 @extends("layouts.main")
 
+@section("unique-css")
+    <link href="{{ asset('css/editform.css') }}" type="text/css" rel="stylesheet">
+@endsection
+
 @section("title")
     Edit Build by {{$build->creator_name}}
 @endsection
 
 @section("content")
 
-<form action="{{ route('build.update') }}" method="POST">
-    <div>
-        <label class="form-label" for="image-link"> Image Link </label>
-        <input class="form-control" id="image-link" type="text" name="image link" value="{{ old('image-link', $build->img_link) }}" placeholder="">
+<div id="form-div">
+
+<div id="heading">
+    <h4>
+        Edit Build by {{$build->creator_name}}
+    </h4>
+</div>
+
+<form action="{{ route('build.update', ['id' => $build->id]) }}" method="POST">
+    <div class="image-flex">
+        <div>
+            <img src="{{ $build->img_link }}" alt="current image for {{ $build->creator_name}}'s build">
+        </div>
+        <div>
+            <label class="form-label" for="image-link"> Image Link </label>
+            <textarea class="form-control" id="image-link" type="text" name="image link" value="" placeholder="">{{ old('image-link', $build->img_link) }}</textarea>
+        </div>
     </div>
     <div>
         <label class="form-label" for="creator-name"> Creator Name </label>
@@ -24,7 +41,7 @@
     </div>
     <div>
         <label class="form-label" for="desription"> Description </label>
-        <textarea class="form-control" id="desription" type="text" name="description" value="{{ old('description', $build->description)}}" placeholder=""></textarea>
+        <textarea class="form-control" id="desription" type="text" name="description" value="" placeholder="">{{ old('description', $build->description)}}</textarea>
     </div>
 
     <div>
@@ -78,5 +95,7 @@
     <button type="submit" class="btn button"> Submit </button>
     <button type="reset" class="btn button"> Reset </button>
 </form>
+
+</div>
 
 @endsection

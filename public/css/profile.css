@@ -1,0 +1,77 @@
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=Nanum+Gothic:wght@400;700&display=swap);
+@font-face {
+  font-family: "finkheavy";
+  src: url("/fonts/finkheavy.ttf");
+}
+@font-face {
+  font-family: "rodin";
+  src: url("/fonts/rodin.otf");
+}
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+#gallery-container {
+  width: 70%;
+}
+#gallery-container #profile-gallery .gallery-box {
+  width: 48%;
+}
+
+#profile-info {
+  width: 25%;
+  text-align: center;
+  /* border: 1px solid #CCC; */
+  border-radius: 15px;
+  background-color: #e9edc9;
+  margin-top: 100px;
+  padding: 70px 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#profile-info div img {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+#profile-info .profile-img {
+  border-radius: 50%;
+  background-color: #f4d35e;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 40px auto;
+}
+#profile-info a {
+  margin: 10px 0;
+}
+#profile-info button.button-link {
+  background-color: none;
+  all: unset;
+  display: inline;
+  cursor: pointer;
+}
+#profile-info button.button-link:hover {
+  color: #CF2740;
+  transition: 0.3s 0s ease-in-out;
+}
+#profile-info form {
+  margin-top: 30px;
+}
+
+#logout {
+  margin-top: 80px;
+}
+
+.capsule {
+  background-color: #f7b267;
+  display: inline-block;
+  color: #fff;
+  padding: 7px 10px;
+  border-radius: 5px;
+}
+
+span.capsule {
+  font-size: 15px;
+}

@@ -25,6 +25,11 @@ html, body {
     background-image: linear-gradient(90deg, $beige,$lightAccent,$lightBlue);
 }
 
+h3, h4, h5 {
+    font-family: $labelFont;
+    margin: 0;
+}
+
 a {
     text-decoration: none;
     color: $grey;
@@ -53,10 +58,10 @@ header {
 }
 
 #logo {
-    width: 60%;
+    width: 40%;
 
     h1 {
-        font-family: 'finkheavy';
+        font-family: $displayFont;
         text-transform: uppercase;
         text-align: center;
         font-size: 50px;
@@ -81,9 +86,25 @@ header {
     border-radius: 10px;
     padding: 2%;
     margin-top: 30px;
+    min-height: 400px;
 
     > div {
         margin: 20px 0;
+    }
+}
+
+#heading {
+    display: flex;
+    justify-content: center;
+
+    h4 {
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin: 20px auto;
+        padding: 8px 15px;
+        display: inline-block;
+        border-bottom: 3px solid $contrast;
     }
 }
 
@@ -136,29 +157,48 @@ header {
     }
 }
 
-.fa {
-    position: relative;
-    top: 16px;
-    left: 20px;
-    color: $red;
-    visibility: hidden;
-    opacity: 0;
-    transition: .5s 0s ease-in-out;
+#gallery-container p {
+    margin: 0;
 }
 
 .gallery {
     display: flex;
-    justify-content: space-between;
+    // justify-content: flex-start;
     flex-wrap: wrap;
 
     .gallery-box {
-        width: 32%;
+        width: 30%;
+        margin-left: 1%;
+        margin-right: 1%;
         margin-bottom: 15px;
+
+        form {
+            display: inline;
+        }
+
+        button.button-link {
+            all: unset;
+            position: relative;
+            top: 16px;
+            left: 20px;
+            color: $red;
+            visibility: hidden;
+            opacity: 0;
+            transition: .5s 0s ease-in-out;
+            cursor: pointer;
+
+            filter:drop-shadow(2px 2px 4px rgba(35, 35, 35, .5));
+
+            &.button-pen {
+                left: 30px;
+                color: $green;
+            }
+        }
 
         &:hover {
             animation: bounce .7s 0s;
 
-            .fa {
+            button.button-link {
                 visibility: visible;
                 opacity: 1;
                 transition: .5s .8s ease-in-out;
@@ -170,22 +210,68 @@ header {
             margin-top: 5px;
         }
 
-        .img-container img {
-            width: 100%;
-            height: auto;
+        .img-container {
+            height: 180px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
         }
 
         .info-container {
             display: flex;
+            align-items: center;
             color: $grey;
         
             p {
-                width: 50%;
+                &:first-child {
+                    width: 35%;
+                    font-style: italic;
+                }
         
                 &:nth-child(2) {
+                    width: 65%;
                     text-align: right;
                     color: $green;
                     text-transform: uppercase;
+                    font-family: $labelFont;
+                    font-size: 14px;
+
+                    &.red {
+                        color: $red;
+                    }
+                    
+                    &.orange {
+                        color: $darkContrast;
+                    }
+                    
+                    &.yellow {
+                        color: $contrast;
+                    }
+                    
+                    &.green {
+                        color: $accent;
+                    }
+                    
+                    &.lightblue {
+                        color: $lightBlue;
+                    }
+                    
+                    &.darkblue {
+                        color: $darkBlue;
+                    }
+                    
+                    &.purple {
+                        color: $purple;
+                    }
+                    
+                    &.pink {
+                        color: $pink;
+                    }
                 }
             }
         }
@@ -204,37 +290,8 @@ header {
     }
 }
 
-.carousel-item {
-    height: 400px;
-}
-
-.about {
-    display: flex;
-    align-items: center;
-
-    #img-div {
-        height: 450px;
-        width: 600px;
-        background-image: url("/img/figstreet.jpeg");
-        background-size: cover;
-    }
-
-    #text {
-        padding: 0 30px;
-    }
-}
-
-.no-padding {
-    padding: 0;
-}
-
-// .block {
-//     padding: 30px;
-// }
-
 form {
-    width: 60%;
-    margin: 50px auto;
+    margin: 0 auto;
 
     div {
         margin: 20px 0;
@@ -259,11 +316,15 @@ form {
 }
 
 .comments-container {
-    height: 300px;
+    max-height: 300px;
     overflow: scroll;
     background-color: $lightGrey;
     padding: 30px;
     margin-bottom: 30px;
+
+    p {
+        margin: 0;
+    }
 
     .comment {
         background-color: $lightAccent;
@@ -278,54 +339,12 @@ form {
         }
 
         p {
-            margin: 0;
-
             &.comment-date {
                 color: $grey;
                 font-size: 14px;
             }
         }
     }
-}
-
-
-
-#gallery-container {
-    width: 70%;
-}
-
-#gallery-container p {
-    margin: 0;
-}
-
-.gallery-box {
-    width: 48%;
-}
-
-#profile-info {
-    width: 24%;
-    text-align: center;
-    /* border: 1px solid #CCC; */
-    border-radius: 15px;
-    background-color: #e9edc9;
-    margin: 20px;
-
-    display: flex;
-    flex-direction: column;
-}
-
-.profile-img {
-    border-radius: 50%;
-    background-color: #f4d35e;
-    width: 130px;
-    height: 130px;
-    margin: 40px auto;
-}
-
-#profile-info div img {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
 }
 
 #logout {
@@ -336,7 +355,28 @@ form {
     color: #27B3CF;
 }
 
-button.button-link {
+.nav-links button.button-link {
     background-color: none;
+    all: unset;
+    display: inline;
+    cursor: pointer;
 
+    &:hover {
+        color: $contrast;
+        transition: .3s 0s ease-in-out;
+    }
+}
+
+// .modal-body button.button-link {
+    
+// }
+
+form#search-form {
+    margin: 50px auto;
+    width: 60%;
+}
+
+#form-div {
+    width: 80%;
+    margin: 20px auto;
 }
