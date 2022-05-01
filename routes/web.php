@@ -11,12 +11,12 @@ use App\Http\Controllers\CommentController;
 
 use Illuminate\Support\Facades\URL;
 
-use App\Models\Build;
-use App\Models\Category;
-use App\Models\Favorite;
-use App\Models\Feature;
-use App\Models\Theme;
-use App\Models\User;
+// use App\Models\Build;
+// use App\Models\Category;
+// use App\Models\Favorite;
+// use App\Models\Feature;
+// use App\Models\Theme;
+// use App\Models\User;
 
 use Illuminate\Http\Request;
 
@@ -34,6 +34,16 @@ use Illuminate\Http\Request;
 Route::middleware(['auth'])->group(function() {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+    Route::get('/builds/new', [BuildController::class, 'create'])->name('build.create');
+    Route::post('/', [BuildController::class, 'store'])->name('build.store');
+    Route::get('/{id}/edit', [BuildController::class, 'edit'])->name('build.edit');
+    Route::post('/builds/{id}', [BuildController::class, 'update'])->name('build.update');
+    Route::post('/builds/delete/{id}', [BuildController::class, 'delete'])->name('build.delete');
+
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
+    Route::post('/favorites/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
+    Route::post('/favorites/delete/{id}', [FavoriteController::class, 'delete'])->name('favorite.delete');
 });
 
 Route::get('/profile/{id}', [ProfileController::class, 'other'])->name('profile.other');
@@ -46,18 +56,6 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/', [BuildController::class, 'index'])->name('build.index');
 Route::get('/search', [BuildController::class, 'search'])->name('build.search');
 Route::get('/results', [BuildController::class, 'result'])->name('build.result');
-// Route::get('/{id}', [BuildController::class, 'show'])->name('build.show');
-
-Route::get('/builds/new', [BuildController::class, 'create'])->name('build.create');
-Route::post('/', [BuildController::class, 'store'])->name('build.store');
-Route::get('/{id}/edit', [BuildController::class, 'edit'])->name('build.edit');
-Route::post('/builds/{id}', [BuildController::class, 'update'])->name('build.update');
-Route::post('/builds/delete/{id}', [BuildController::class, 'delete'])->name('build.delete');
-
-Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
-Route::post('/favorites/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
-Route::post('/favorites/delete/{id}', [FavoriteController::class, 'delete'])->name('favorite.delete');
-// Route::post('/profile', [FavoriteController::class, 'delete'])->name('favorite.delete');
 
 Route::post('/comments/{id}', [CommentController::class, 'store'])->name('comment.store');
 Route::post('/comments/edit/{id}', [CommentController::class, 'edit'])->name('comment.edit');

@@ -66,10 +66,20 @@
                 <a href="{{ route('favorite.index') }}">Favorites</a>
             @endif
         </div>
+        @if (Auth::check())
         <div>
-            <a href="{{ route('register.create') }}">Register</a>
-            <a href="{{ route('login') }}">Login</a>
+            <form method="POST" action="{{ route('auth.logout') }}">
+                @csrf
+                <button type="submit" class="btn button-link">Logout</button>
+            </form>
         </div>
+            
+        @else
+            <div>
+                <a href="{{ route('register.create') }}">Register</a>
+                <a href="{{ route('login') }}">Login</a>
+            </div>
+        @endif
     </div>
 
     <div class="footer">

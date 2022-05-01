@@ -10,7 +10,7 @@
     </h4>
 </div>
 
-<form action="{{ route('build.result') }}" method="GET" id="search-form">
+<form action="{{ route('build.result') }}" method="GET" id="narrow-form">
     
     <div>
         <label for="theme" class="form-label">Theme</label>

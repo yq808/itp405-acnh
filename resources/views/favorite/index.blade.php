@@ -95,7 +95,7 @@
                     </a>
                 </h3>
 
-                <p class="submitted-by">Submitted by <a href="{{ route('profile.other', ['id' => $favorite->build->user->id]) }}">{{$favorite->user->username}}</a></p>
+                <p class="submitted-by">Submitted by <a href="{{ route('profile.other', ['id' => $favorite->build->user->id]) }}">{{$favorite->build->user->username}}</a></p>
 
                 <img src="{{ $favorite->build->img_link }}" alt="{{$favorite->build->creator_name}}'s build">
 
@@ -132,6 +132,7 @@
                                 </p>
                                 <p class="comment-date">Posted on {{ date_format($comment->updated_at, 'n/j/Y') }}</p>
 
+                                @canany(['update', 'delete'], $comment)
                                 <div class="comment-form">
                                     <form action="{{ route('comment.edit', ['id' => $comment->id]) }}" method="POST">
                                         @csrf
@@ -142,6 +143,7 @@
                                         <button type="submit" class="btn button button-link">Delete</button>
                                     </form>
                                 </div>
+                                @endcan
                             </div>
                         @endif
                     @endforeach
@@ -155,14 +157,12 @@
                     </form>
                     @endif
 
-                    @can('update', $favorite->build)
+                    @canany(['update', 'delete'], $favorite->build)
                     <form action="{{ route('build.edit', ['id' => $favorite->build->id, 'url' => URL::current()]) }}" method="GET">
                     @csrf
                         <button type="submit" class="btn button">Edit</button>
                     </form>
-                    @endcan
 
-                    @can('delete', $favorite->build)
                     <form action="{{ route('build.delete', ['id' => $favorite->build->id, 'url' => URL::current()]) }}" method="POST">
                     @csrf
                         <button type="submit" class="btn button">Delete</button>

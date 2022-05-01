@@ -46,7 +46,7 @@
             @if(!$build->created_at)
                 <p>Date: N/A</p>
             @else()
-                <p>{{$build->created_at}}</p>
+                <p>{{ date_format($build->updated_at, 'n/j/Y') }}</p>
             @endif
             @if ($build->theme->id == 1)
                 <p class="red">
@@ -82,7 +82,7 @@
                     </a>
                 </h3>
 
-                <p class="submitted-by">Submitted by {{$build->user->username}}</p>
+                <p class="submitted-by">Submitted by <a href="{{ route('profile.other', ['id' => $build->user->id]) }}">{{$build->user->username}}</a></p>
 
                 <img src="{{$build->img_link}}" alt="{{$build->creator_name}}'s build">
 
@@ -119,6 +119,7 @@
                                 </p>
                                 <p class="comment-date">Posted on {{ date_format($comment->updated_at, 'n/j/Y') }}</p>
 
+                                @canany(['update', 'delete'], $comment)
                                 <div class="comment-form">
                                     <form action="{{ route('comment.edit', ['id' => $comment->id]) }}" method="POST">
                                         @csrf
@@ -129,6 +130,7 @@
                                         <button type="submit" class="btn button button-link">Delete</button>
                                     </form>
                                 </div>
+                                @endcan
                             </div>
                         @endif
                     @endforeach
@@ -142,14 +144,12 @@
                     </form>
                     @endif
 
-                    @can('update', $build)
+                    @canany(['update', 'delete'], $build)
                     <form action="{{ route('build.edit', ['id' => $build->id, 'url' => URL::current()]) }}" method="GET">
                     @csrf
                         <button type="submit" class="btn button">Edit</button>
                     </form>
-                    @endcan
 
-                    @can('delete', $build)
                     <form action="{{ route('build.delete', ['id' => $build->id, 'url' => URL::current()]) }}" method="POST">
                     @csrf
                         <button type="submit" class="btn button">Delete</button>

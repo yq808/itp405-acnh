@@ -12,7 +12,7 @@
     </h4>
 </div>
 
-<form action="{{ route('build.store') }}" method="POST" id="search-form">
+<form action="{{ route('build.store') }}" method="POST" id="narrow-form">
     @csrf
     <div>
         <label class="form-label" for="image-link"> Image Link </label>

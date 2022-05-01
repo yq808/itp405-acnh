@@ -45,6 +45,10 @@
 }
 #profile-info a {
   margin: 10px 0;
+  color: #B8CD59;
+}
+#profile-info a:hover {
+  color: #f4d35e;
 }
 #profile-info button.button-link {
   background-color: none;

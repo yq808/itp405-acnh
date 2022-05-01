@@ -10,7 +10,7 @@
 
 @section("content")
 
-<div id="form-div">
+{{-- <div id="form-div"> --}}
 
 <div id="heading">
     <h4>
@@ -18,7 +18,7 @@
     </h4>
 </div>
 
-<form action="{{ route('build.update', ['id' => $build->id]) }}" method="POST">
+<form action="{{ route('build.update', ['id' => $build->id]) }}" method="POST" id="edit-form">
     @csrf
     <div class="image-flex">
         <div>
@@ -106,6 +106,6 @@
     <button type="reset" class="btn button"> Reset </button>
 </form>
 
-</div>
+{{-- </div> --}}
 
 @endsection

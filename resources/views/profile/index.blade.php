@@ -90,7 +90,7 @@
                     </a>
                 </h3>
 
-                <p class="submitted-by">Submitted by {{$isCreator->user->username}}</p>
+                <p class="submitted-by">Submitted by <a href="{{ route('profile.other', ['id' => $isCreator->user->id]) }}">{{$isCreator->user->username}}</a></p>
 
                 <img src="{{ $isCreator->img_link }}" alt="{{$isCreator->creator_name}}'s build">
 
@@ -127,6 +127,7 @@
                                 </p>
                                 <p class="comment-date"><p class="comment-date">Posted on {{ date_format($comment->updated_at, 'n/j/Y') }}</p></p>
 
+                                @canany(['update', 'delete'], $comment)
                                 <div class="comment-form">
                                     <form action="{{ route('comment.edit', ['id' => $comment->id]) }}" method="POST">
                                         @csrf
@@ -137,6 +138,7 @@
                                         <button type="submit" class="btn button button-link">Delete</button>
                                     </form>
                                 </div>
+                                @endcan
                             </div>
                         @endif
                     @endforeach
@@ -150,14 +152,12 @@
                     </form>
                     @endif
 
-                    @can('update', $isCreator)
+                    @canany(['update', 'delete'], $isCreator)
                     <form action="{{ route('build.edit', ['id' => $isCreator->id, 'url' => URL::current()]) }}" method="GET">
                     @csrf
                         <button type="submit" class="btn button">Edit</button>
                     </form>
-                    @endcan
 
-                    @can('delete', $isCreator)
                     <form action="{{ route('build.delete', ['id' => $isCreator->id, 'url' => URL::current()]) }}" method="POST">
                     @csrf
                         <button type="submit" class="btn button">Delete</button>

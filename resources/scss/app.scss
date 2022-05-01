@@ -121,6 +121,10 @@ header {
             transition: .3s 0s ease-in-out;
         }
     }
+
+    form {
+        margin: 0;
+    }
 }
 
 .bottom-nav {
@@ -143,6 +147,10 @@ header {
 
     a {
         width: 100%;
+    }
+
+    form a {
+        color: $grey;
     }
 }
 
@@ -337,7 +345,7 @@ header {
 }
 
 form {
-    margin: 0 auto;
+    margin: 0;
 
     div {
         margin: 20px 0;
@@ -380,8 +388,14 @@ form {
 
         h6 {
             text-transform: uppercase;
-            color: $green;
             font-weight: bold;
+            font-size: 14px;
+            background-color: $darkAccent;
+            color: $white;
+            display: inline-block;
+            padding: 5px 12px;
+            margin-bottom: 10px;
+            border-radius: 10px;
         }
 
         p {
@@ -428,14 +442,16 @@ button.button-link {
     
 // }
 
-form#search-form {
-    margin: 50px auto;
-    width: 60%;
-}
+form {
+    &#narrow-form {
+        margin: 50px auto;
+        width: 60%;
+    }
 
-#form-div {
-    width: 80%;
-    margin: 20px auto;
+    &#edit-form {
+        width: 80%;
+        margin: 50px auto;
+    }
 }
 
 .bottom-buttons {

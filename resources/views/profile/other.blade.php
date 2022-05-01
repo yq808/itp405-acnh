@@ -47,7 +47,7 @@
             @if(!$isCreator->created_at)
                 <p>Date: N/A</p>
             @else()
-                <p>{{$isCreator->created_at}}</p>
+                <p>{{ date_format($isCreator->updated_at, 'n/j/Y') }}</p>
             @endif
             @if ($isCreator->theme->id == 1)
                 <p class="red">
@@ -83,7 +83,7 @@
                     </a>
                 </h3>
                 
-                <p class="submitted-by">Submitted by {{ $user->username }}</p>
+                <p class="submitted-by">Submitted by <a href="{{ route('profile.other', ['id' => $isCreator->user->id]) }}">{{ $isCreator->user->username }}</a></p>
 
                 <img src="{{ $isCreator->img_link }}" alt="{{$isCreator->creator_name}}'s build">
 
@@ -119,6 +119,7 @@
                                 </p>
                                 <p class="comment-date">Posted on {{ date_format($comment->updated_at, 'n/j/Y') }}</p>
 
+                                @canany(['update', 'delete'], $comment)
                                 <div class="comment-form">
                                     <form action="{{ route('comment.edit', ['id' => $comment->id]) }}" method="POST">
                                         @csrf
@@ -129,12 +130,32 @@
                                         <button type="submit" class="btn button button-link">Delete</button>
                                     </form>
                                 </div>
+                                @endcan
                             </div>
                         @endif
                     @endforeach
                 </div>
 
-                <button class="btn">Button</button>
+                <div class="bottom-buttons">
+                    @if (Auth::check())
+                    <form action="{{ route('favorite.store', ['id' => $isCreator->id]) }}" method="POST" target="_blank">
+                    @csrf
+                        <button type="submit" class="btn button">Favorite</button>
+                    </form>
+                    @endif
+
+                    @canany(['update', 'delete'], $isCreator)
+                    <form action="{{ route('build.edit', ['id' => $isCreator->id, 'url' => URL::current()]) }}" method="GET">
+                    @csrf
+                        <button type="submit" class="btn button">Edit</button>
+                    </form>
+
+                    <form action="{{ route('build.delete', ['id' => $isCreator->id, 'url' => URL::current()]) }}" method="POST">
+                    @csrf
+                        <button type="submit" class="btn button">Delete</button>
+                    </form>
+                    @endcan
+                </div>
             </div>
           </div>
         </div>

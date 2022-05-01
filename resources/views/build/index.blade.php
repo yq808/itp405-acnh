@@ -126,10 +126,8 @@
                                         {{ $comment->comment }}
                                     </p>
                                     <p class="comment-date">Posted on {{ date_format($comment->updated_at, 'n/j/Y') }}</p>
-                                    {{-- <form action="{{ route('comment.edit') }}">
 
-                                    </form> --}}
-
+                                    @canany(['update', 'delete'], $comment)
                                     <div class="comment-form">
                                         <form action="{{ route('comment.edit', ['id' => $comment->id]) }}" method="POST">
                                             @csrf
@@ -140,6 +138,7 @@
                                             <button type="submit" class="btn button button-link">Delete</button>
                                         </form>
                                     </div>
+                                    @endcan
                                 </div>
                             @endif
                         @endforeach
@@ -153,14 +152,12 @@
                         </form>
                         @endif
 
-                        @can('update', $build)
+                        @canany(['update', 'delete'], $build)
                         <form action="{{ route('build.edit', ['id' => $build->id, 'url' => URL::current()]) }}" method="GET">
                         @csrf
                             <button type="submit" class="btn button">Edit</button>
                         </form>
-                        @endcan
 
-                        @can('delete', $build)
                         <form action="{{ route('build.delete', ['id' => $build->id, 'url' => URL::current()]) }}" method="POST">
                         @csrf
                             <button type="submit" class="btn button">Delete</button>

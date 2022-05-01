@@ -23,34 +23,14 @@ class BuildController extends Controller
                 ->take(9)
                 ->get();
 
-        // $builds;
-
-        // if (Auth::check()) {
-        //     $builds = Build::with(['category', 'theme', 'season', 'favorite']);
-        // } else {
-        //     $builds = Build::with(['category', 'theme', 'season']);
-        // }
-
-        // $builds = $builds->orderBy('created_at', 'desc')
-        //         ->take(9)
-        //         ->get();
-
         $comments = Comment::with(['build', 'user'])
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        // $isFavorite;
-
-        // if (Auth::check()) {
-        //     $isFavorite = Build::with(['favorite'])
-        //             ->where('favorite.user_id', '=', Auth::user()->id)
-        //             ->get();
-        // }
-
         return view('build.index', [
             'builds' => $builds,
             'comments' => $comments,
-            // 'isFavorite' => $isFavorite,
+            'user' => Auth::user(),
         ]);
     }
 
@@ -165,22 +145,20 @@ class BuildController extends Controller
 
     public function result(Request $request)
     {
-        // $request->validate([
-        //     'theme' => 'exists:themes,id',
-        //     'category' => 'exists:categories,id',
-        //     'season' => 'exists:seasons,id',
-        // ]);
+        $request->validate([
+            'theme' => 'nullable|exists:themes,id',
+            'category' => 'nullable|exists:categories,id',
+            'season' => 'nullable|exists:seasons,id',
+        ]);
 
         $builds = Build::with([
-            'category', 'theme', 'season',
+            'category', 'theme', 'season'
             ])
         ->orderBy('id', 'desc');
 
         if($request->input('category')) {
             $builds->where('category_id', '=', $request->input('category'));
         }
-
-        // dd($request->input('category'));
 
         if($request->input('theme')) {
             $builds->where('theme_id', '=',  $request->input('theme'));
@@ -189,8 +167,6 @@ class BuildController extends Controller
         if($request->input('season')) {
             $builds->where('season_id', '=',  $request->input('season'));
         }
-
-        // $builds->get();
 
         $builds = $builds->get();
 

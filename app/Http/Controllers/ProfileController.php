@@ -59,17 +59,17 @@ class ProfileController extends Controller
 
     public function other($id)
     {
-        // if (!Auth::check()) {
-        //     return redirect()
-        //     ->route('build.index')
-        //     ->with('error', "error");
-        // } elseif (Auth::user()->id == $id) {
-        //     return redirect()->route('profile.index');
-        // }
-
-        if (Auth::user()->id == $id) {
+        if (!Auth::check()) {
+            return redirect()
+            ->route('build.index')
+            ->with('error', "error");
+        } elseif (Auth::user()->id == $id) {
             return redirect()->route('profile.index');
         }
+
+        // if (Auth::user()->id == $id) {
+        //     return redirect()->route('profile.index');
+        // }
 
         $isCreators = Build::with([
                 'theme',

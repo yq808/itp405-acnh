@@ -4,7 +4,13 @@
 
 @section("content")
 
-<form action="{{ route('auth.login') }}" method="POST">
+@if (session('error'))
+<div class="alert alert-warning" role="alert">
+    {{ session('error') }}
+</div>
+@endif
+
+<form action="{{ route('auth.login') }}" method="POST" id="narrow-form">
     @csrf
     <div>
         <label class="form-label" for="email"> Email </label>
