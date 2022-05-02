@@ -14,6 +14,7 @@
 .about {
   display: flex;
   align-items: center;
+  padding-right: 30px;
 }
 .about #img-div {
   height: 450px;
@@ -23,6 +24,9 @@
 }
 .about #text {
   padding: 0 30px;
+}
+.about #text #uppercase {
+  text-transform: uppercase;
 }
 
 .content {

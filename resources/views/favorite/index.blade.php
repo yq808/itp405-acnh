@@ -17,7 +17,7 @@
         </div>
     @endif
     @if (session('error'))
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-danger" role="alert">
             {{ session('error') }}
         </div>
     @endif
@@ -149,23 +149,23 @@
                     @endforeach
                 </div>
 
-                <div class="bottom-buttons">
+                <div class="modal-buttons">
                     @if (Auth::check())
                     <form action="{{ route('favorite.delete', ['id' => $favorite->id]) }}" method="POST">
                     @csrf
-                        <button type="submit" class="btn button">Favorite</button>
+                        <button type="submit" class="btn button button-link">Favorite</button>
                     </form>
                     @endif
 
                     @canany(['update', 'delete'], $favorite->build)
                     <form action="{{ route('build.edit', ['id' => $favorite->build->id, 'url' => URL::current()]) }}" method="GET">
                     @csrf
-                        <button type="submit" class="btn button">Edit</button>
+                        <button type="submit" class="btn button button-link">Edit</button>
                     </form>
 
                     <form action="{{ route('build.delete', ['id' => $favorite->build->id, 'url' => URL::current()]) }}" method="POST">
                     @csrf
-                        <button type="submit" class="btn button">Delete</button>
+                        <button type="submit" class="btn button button-link">Delete</button>
                     </form>
                     @endcan
                 </div>

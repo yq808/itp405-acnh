@@ -32,6 +32,33 @@ class CommentController extends Controller
             ->with('success', "Your comment was posted.");
     }
 
+    public function edit($id)
+    {
+        $comment = Comment::with(['build', 'user'])
+                ->find($id);
+
+        return view ('comment.edit', [
+            'comment' => $comment,
+        ]);
+    }
+
+    public function update(Request $request, $id, $creator)
+    {
+        $request->validate([
+            'comment' => 'required|min:5|max:500',
+        ]);
+
+        $comment = Comment::find($id);
+
+        $comment->comment = $request->input('comment');
+
+        $comment->save();
+
+        return redirect()
+            ->route('build.index')
+            ->with('success', "Your comment for " . $creator "'s build has been edited.");
+    }
+
     public function delete($id)
     {
         $comment = Comment::find($id);

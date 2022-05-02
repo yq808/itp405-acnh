@@ -154,7 +154,7 @@ header {
 .bottom-nav a {
   width: 100%;
 }
-.bottom-nav form a {
+.bottom-nav form button {
   color: #9D9D9D;
 }
 
@@ -401,11 +401,11 @@ form#edit-form {
   margin: 50px auto;
 }
 
-.bottom-buttons {
+.modal-buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
-.bottom-buttons form {
+.modal-buttons form {
   display: inline;
   margin: 0 20px;
   text-align: right;

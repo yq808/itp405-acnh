@@ -41,6 +41,10 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/builds/{id}', [BuildController::class, 'update'])->name('build.update');
     Route::post('/builds/delete/{id}', [BuildController::class, 'delete'])->name('build.delete');
 
+    Route::post('/comments/{id}', [CommentController::class, 'store'])->name('comment.store');
+    Route::post('/comments/edit/{id}', [CommentController::class, 'edit'])->name('comment.edit');
+    Route::post('/comments/delete/{id}', [CommentController::class, 'delete'])->name('comment.delete');
+
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorite.index');
     Route::post('/favorites/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::post('/favorites/delete/{id}', [FavoriteController::class, 'delete'])->name('favorite.delete');
@@ -56,10 +60,6 @@ Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/', [BuildController::class, 'index'])->name('build.index');
 Route::get('/search', [BuildController::class, 'search'])->name('build.search');
 Route::get('/results', [BuildController::class, 'result'])->name('build.result');
-
-Route::post('/comments/{id}', [CommentController::class, 'store'])->name('comment.store');
-Route::post('/comments/edit/{id}', [CommentController::class, 'edit'])->name('comment.edit');
-Route::post('/comments/delete/{id}', [CommentController::class, 'delete'])->name('comment.delete');
 
 if (env('APP_ENV') !== 'local') {
     URL::forceScheme('https');

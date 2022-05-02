@@ -37,8 +37,8 @@
                     <button type="submit" class="btn button-link">Logout</button>
                 </form>
             @else
-                <a href="{{ route('register.create') }}">Register</a>
                 <a href="{{ route('login') }}">Login</a>
+                <a href="{{ route('register.create') }}">Register</a>
             @endif
         </div>
     </header>
@@ -76,8 +76,8 @@
             
         @else
             <div>
-                <a href="{{ route('register.create') }}">Register</a>
                 <a href="{{ route('login') }}">Login</a>
+                <a href="{{ route('register.create') }}">Register</a>
             </div>
         @endif
     </div>

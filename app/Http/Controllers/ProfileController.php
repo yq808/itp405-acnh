@@ -28,6 +28,7 @@ class ProfileController extends Controller
                 'theme',
                 'category',
                 'season',
+                'user'
                 ])
                 ->where('user_id', '=', $user->id)
                 ->orderBy('updated_at', 'desc')
@@ -42,7 +43,7 @@ class ProfileController extends Controller
             'build.theme',
             'build.category',
             'build.season',
-            'user',
+            'user'
             ])
             ->where('user_id', '=', $user->id)
             ->get();
@@ -75,6 +76,7 @@ class ProfileController extends Controller
                 'theme',
                 'category',
                 'season',
+                'user'
                 ])
                 ->where('user_id', '=', $id)
                 ->orderBy('updated_at', 'desc')

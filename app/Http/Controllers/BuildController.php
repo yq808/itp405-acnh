@@ -19,7 +19,7 @@ class BuildController extends Controller
         // $this->authorize('viewAny', Invoice::class);
 
         $builds = Build::with([
-                    'category', 'theme', 'season'
+                    'category', 'theme', 'season', 'user'
                     ])
                 ->orderBy('created_at', 'desc')
                 ->take(9)
@@ -38,8 +38,8 @@ class BuildController extends Controller
 
     public function create()
     {
-        $themes = Theme::all();
-        $categories = Category::all();
+        $themes = Theme::orderBy('theme', 'asc')->get();
+        $categories = Category::orderBy('category', 'asc')->get();
         $seasons = Season::all();
 
         return view('build.create', [
@@ -86,9 +86,9 @@ class BuildController extends Controller
             ])
             ->find($id);
 
-        $themes = Theme::all();
-        $categories = Category::all();
-        $seasons = Season::all();
+            $themes = Theme::orderBy('theme', 'asc')->get();
+            $categories = Category::orderBy('category', 'asc')->get();
+            $seasons = Season::all();
 
         $this->authorize('update', $build);
 
@@ -134,8 +134,8 @@ class BuildController extends Controller
 
     public function search()
     {
-        $themes = Theme::all();
-        $categories = Category::all();
+        $themes = Theme::orderBy('theme', 'asc')->get();
+        $categories = Category::orderBy('category', 'asc')->get();
         $seasons = Season::all();
 
         return view('build.search', [
@@ -154,7 +154,7 @@ class BuildController extends Controller
         ]);
 
         $builds = Build::with([
-            'category', 'theme', 'season'
+            'category', 'theme', 'season', 'user'
             ])
         ->orderBy('id', 'desc');
 

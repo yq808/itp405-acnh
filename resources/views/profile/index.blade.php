@@ -144,23 +144,23 @@
                     @endforeach
                 </div>
 
-                <div class="bottom-buttons">
+                <div class="modal-buttons">
                     @if (Auth::check())
                     <form action="{{ route('favorite.store', ['id' => $isCreator->id]) }}" method="POST" target="_blank">
                     @csrf
-                        <button type="submit" class="btn button">Favorite</button>
+                        <button type="submit" class="btn button button-link">Favorite</button>
                     </form>
                     @endif
 
                     @canany(['update', 'delete'], $isCreator)
                     <form action="{{ route('build.edit', ['id' => $isCreator->id, 'url' => URL::current()]) }}" method="GET">
                     @csrf
-                        <button type="submit" class="btn button">Edit</button>
+                        <button type="submit" class="btn button button-link">Edit</button>
                     </form>
 
                     <form action="{{ route('build.delete', ['id' => $isCreator->id, 'url' => URL::current()]) }}" method="POST">
                     @csrf
-                        <button type="submit" class="btn button">Delete</button>
+                        <button type="submit" class="btn button button-link">Delete</button>
                     </form>
                     @endcan
                 </div>

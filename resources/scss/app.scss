@@ -149,7 +149,7 @@ header {
         width: 100%;
     }
 
-    form a {
+    form button {
         color: $grey;
     }
 }
@@ -454,9 +454,9 @@ form {
     }
 }
 
-.bottom-buttons {
+.modal-buttons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 
     form {
         display: inline;

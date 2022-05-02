@@ -10,12 +10,6 @@
         </h4>
     </div>
 
-    {{-- <div class="build-tags">
-        <p></p>
-        <p></p>
-        <p></p>
-    </div> --}}
-
 <div class="gallery" id="new-gallery">
     @if (count($builds) == 0)
         <p>There were no builds with your specifications.</p>
@@ -136,23 +130,23 @@
                     @endforeach
                 </div>
 
-                <div class="bottom-buttons">
+                <div class="modal-buttons">
                     @if (Auth::check())
                     <form action="{{ route('favorite.store', ['id' => $build->id]) }}" method="POST" target="_blank">
                     @csrf
-                        <button type="submit" class="btn button">Favorite</button>
+                        <button type="submit" class="btn button button-link">Favorite</button>
                     </form>
                     @endif
 
                     @canany(['update', 'delete'], $build)
                     <form action="{{ route('build.edit', ['id' => $build->id, 'url' => URL::current()]) }}" method="GET">
                     @csrf
-                        <button type="submit" class="btn button">Edit</button>
+                        <button type="submit" class="btn button button-link">Edit</button>
                     </form>
 
                     <form action="{{ route('build.delete', ['id' => $build->id, 'url' => URL::current()]) }}" method="POST">
                     @csrf
-                        <button type="submit" class="btn button">Delete</button>
+                        <button type="submit" class="btn button button-link">Delete</button>
                     </form>
                     @endcan
                 </div>

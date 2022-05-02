@@ -26,7 +26,7 @@ class FavoriteController extends Controller
                 'build.theme',
                 'build.category',
                 'build.season',
-                'user',
+                'user'
                 ])
                 ->where('user_id', '=', $user->id)
                 ->orderBy('updated_at', 'desc')
@@ -40,6 +40,7 @@ class FavoriteController extends Controller
             'theme',
             'category',
             'season',
+            'user'
             ])
             ->where('user_id', '=', $user->id)
             ->orderBy('updated_at', 'desc')

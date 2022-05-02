@@ -9,19 +9,19 @@
 @section("content")
 
 <div class="block">
-    @if (session('error'))
-        <div class="alert alert-warning" role="alert">
-            You must <a href="{{ route('login') }}">login</a> to view other profiles!
-        </div>
-    @endif
     @if (session('success'))
         <div class="alert alert-success" role="alert">
             {{ session('success') }}
         </div>
     @endif
+    @if (session('error'))
+        <div class="alert alert-danger" role="alert">
+            You must <a href="{{ route('login') }}">login</a> to view other profiles!
+        </div>
+    @endif
     <div id="heading">
         <h4>
-            Newest in...
+            Newly added
         </h4>
     </div>
 
@@ -144,23 +144,23 @@
                         @endforeach
                     </div>
 
-                    <div class="bottom-buttons">
+                    <div class="modal-buttons">
                         @if (Auth::check())
                         <form action="{{ route('favorite.store', ['id' => $build->id]) }}" method="POST" target="_blank">
                         @csrf
-                            <button type="submit" class="btn button">Favorite</button>
+                            <button type="submit" class="btn button button-link">Favorite</button>
                         </form>
                         @endif
 
                         @canany(['update', 'delete'], $build)
                         <form action="{{ route('build.edit', ['id' => $build->id, 'url' => URL::current()]) }}" method="GET">
                         @csrf
-                            <button type="submit" class="btn button">Edit</button>
+                            <button type="submit" class="btn button button-link">Edit</button>
                         </form>
 
                         <form action="{{ route('build.delete', ['id' => $build->id, 'url' => URL::current()]) }}" method="POST">
                         @csrf
-                            <button type="submit" class="btn button">Delete</button>
+                            <button type="submit" class="btn button button-link">Delete</button>
                         </form>
                         @endcan
                     </div>
@@ -203,10 +203,12 @@
         </div>
     </div>
     <div id="text">
-        <p>FIND INSPIRATION</p>
-        <h4>What's this?</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc urna nisi, consequat sed ultricies sit amet, euismod sed mi. Fusce finibus libero a nisi pretium convallis. Donec fringilla lectus ac lacus ornare, ac ultrices nulla imperdiet. Curabitur enim mi, lobortis vel vestibulum eu, pulvinar sed elit.</p>
-        <a href=""></a>
+        <p id="uppercase">Builds by the community</p>
+        <h4>A website for design inspiration!</h4>
+        <p>Nintendo Switch's game Animal Crossing: New Horizons is ripe with design potential. In addition to being able to interact with villagers and NPCs, complete quests, and collect items, players have made insanely creative and beautiful builds on their island. Here is a place for people to share builds and favorite the ones they love. </p>
+        <p>
+            <a href="{{ route('register.create') }}">Register</a> or <a href="{{ route('login') }}">login</a> to get started.
+        </p>
     </div>
 </div>
 
