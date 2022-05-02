@@ -65,7 +65,7 @@ class FavoritePolicy
      */
     public function delete(User $user, Favorite $favorite)
     {
-        return $user->id === $favorite->user_id;
+        // return $user->id === $favorite->user_id;
     }
 
     /**

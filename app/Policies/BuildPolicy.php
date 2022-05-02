@@ -61,7 +61,7 @@ class BuildPolicy
      */
     public function update(User $user, Build $build)
     {
-        return $user->id === $build->user_id;
+        // return $user->id === $build->user_id;
     }
 
     /**
@@ -73,7 +73,7 @@ class BuildPolicy
      */
     public function delete(User $user, Build $build)
     {
-        return $user->id === $build->user_id;
+        // return $user->id === $build->user_id;
     }
 
     /**

@@ -81,9 +81,9 @@ class BuildController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user()->cannot('update', Build::class)) {
-            abort(403);
-        }
+        // if (Auth::user()->cannot('update', Build::class)) {
+        //     abort(403);
+        // }
         
         $build = Build::with([
             'category', 'theme', 'season',
@@ -94,7 +94,7 @@ class BuildController extends Controller
             $categories = Category::orderBy('category', 'asc')->get();
             $seasons = Season::all();
 
-        $this->authorize('update', $build);
+        // $this->authorize('update', $build);
 
         return view ('build.edit', [
             'build' => $build,

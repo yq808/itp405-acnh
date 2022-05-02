@@ -85,9 +85,9 @@ class FavoriteController extends Controller
     {
         $favorite = Favorite::find($id);
 
-        if (Auth::user()->cannot('delete', $favorite)) {
-            abort(403);
-        }
+        // if (Auth::user()->cannot('delete', $favorite)) {
+        //     abort(403);
+        // }
 
         $favorite->delete();
 

@@ -44,9 +44,9 @@ class CommentController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (Auth::user()->cannot('update', Comment::class)) {
-            abort(403);
-        }
+        // if (Auth::user()->cannot('update', Comment::class)) {
+        //     abort(403);
+        // }
 
         $request->validate([
             'comment' => 'required|min:5|max:500',
