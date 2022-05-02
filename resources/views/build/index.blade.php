@@ -2,6 +2,7 @@
 
 @section("unique-css")
     <link href="{{ asset('css/index.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('css/gallery.css') }}" type="text/css" rel="stylesheet">
 @endsection
 
 @section("title", "Home")
@@ -41,7 +42,7 @@
             @endif
 
             @can('update', $build)
-                <form action="{{ route('build.edit', ['id' => $build->id, 'url' => URL::current()]) }}" method="GET">
+                <form action="{{ route('build.edit', ['id' => $build->id]) }}" method="GET">
                 @csrf
                     <button type="submit" class="btn button button-link button-pen">
                         <i class="fa fa-pen fa-2xl fa-bounce"></i>
@@ -107,7 +108,7 @@
                         <form action="{{ route('comment.store', ['id' => $build->id]) }}" method="POST">
                             @csrf
                             <div>
-                                <textarea class="form-control" id="comment" type="text" name="comment" placeholder="">{{ old('comment') }}</textarea>
+                                <textarea class="form-control" id="comment" type="text" name="comment">{{ old('comment') }}</textarea>
                                 @error("comment")
                                     <small class="text-danger">{{$message}}</small>
                                 @enderror
@@ -125,11 +126,11 @@
                                     <p>
                                         {{ $comment->comment }}
                                     </p>
-                                    <p class="comment-date">Posted on {{ date_format($comment->updated_at, 'n/j/Y') }}</p>
+                                    <p class="comment-date">Posted on {{ date_format($comment->updated_at, 'n/j/Y') }} at {{ date_format($comment->updated_at, 'g:i A') }}</p>
 
                                     @canany(['update', 'delete'], $comment)
                                     <div class="comment-form">
-                                        <form action="{{ route('comment.edit', ['id' => $comment->id]) }}" method="POST">
+                                        <form action="{{ route('comment.edit', ['id' => $comment->id]) }}" method="GET">
                                             @csrf
                                             <button type="submit" class="btn button button-link">Edit</button>
                                         </form>
@@ -153,12 +154,12 @@
                         @endif
 
                         @canany(['update', 'delete'], $build)
-                        <form action="{{ route('build.edit', ['id' => $build->id, 'url' => URL::current()]) }}" method="GET">
+                        <form action="{{ route('build.edit', ['id' => $build->id]) }}" method="GET">
                         @csrf
                             <button type="submit" class="btn button button-link">Edit</button>
                         </form>
 
-                        <form action="{{ route('build.delete', ['id' => $build->id, 'url' => URL::current()]) }}" method="POST">
+                        <form action="{{ route('build.delete', ['id' => $build->id]) }}" method="POST">
                         @csrf
                             <button type="submit" class="btn button button-link">Delete</button>
                         </form>

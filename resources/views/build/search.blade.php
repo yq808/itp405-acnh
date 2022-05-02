@@ -11,7 +11,7 @@
 </div>
 
 <form action="{{ route('build.result') }}" method="GET" id="narrow-form">
-    
+    @csrf
     <div>
         <label for="theme" class="form-label">Theme</label>
         <select name="theme" id="theme" class="form-select">

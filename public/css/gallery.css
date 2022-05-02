@@ -1,0 +1,225 @@
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600&family=Nanum+Gothic:wght@400;700&display=swap);
+@font-face {
+  font-family: "finkheavy";
+  src: url("/fonts/finkheavy.ttf");
+}
+@font-face {
+  font-family: "rodin";
+  src: url("/fonts/rodin.otf");
+}
+@-webkit-keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(0.95);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(0.95);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+.gallery .gallery-box {
+  width: 30%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 15px;
+}
+.gallery .gallery-box form {
+  display: inline;
+}
+.gallery .gallery-box button.button-link {
+  position: relative;
+  top: 16px;
+  left: 20px;
+  color: #CF2740;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s 0s ease-in-out;
+  cursor: pointer;
+  filter: drop-shadow(2px 2px 4px rgba(35, 35, 35, 0.5));
+}
+.gallery .gallery-box button.button-link.button-pen {
+  left: 30px;
+  color: #B8CD59;
+}
+.gallery .gallery-box:hover {
+  -webkit-animation: bounce 0.7s 0s;
+          animation: bounce 0.7s 0s;
+}
+.gallery .gallery-box:hover button.button-link {
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s 0.8s ease-in-out;
+}
+.gallery .gallery-box p {
+  margin: 0;
+  margin-top: 5px;
+}
+.gallery .gallery-box .img-container {
+  height: 180px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+}
+.gallery .gallery-box .img-container img {
+  width: 100%;
+  height: auto;
+}
+.gallery .gallery-box .info-container {
+  display: flex;
+  align-items: center;
+  color: #9D9D9D;
+}
+.gallery .gallery-box .info-container p:first-child {
+  width: 35%;
+  font-style: italic;
+}
+.gallery .gallery-box .info-container p:nth-child(2) {
+  width: 65%;
+  text-align: right;
+  color: #B8CD59;
+  text-transform: uppercase;
+  font-family: "rodin", sans-serif;
+  font-size: 14px;
+}
+.gallery .gallery-box .info-container p:nth-child(2).red {
+  color: #CF2740;
+}
+.gallery .gallery-box .info-container p:nth-child(2).orange {
+  color: #f7b267;
+}
+.gallery .gallery-box .info-container p:nth-child(2).yellow {
+  color: #f4d35e;
+}
+.gallery .gallery-box .info-container p:nth-child(2).green {
+  color: #ccd5ae;
+}
+.gallery .gallery-box .info-container p:nth-child(2).lightblue {
+  color: #A8DADC;
+}
+.gallery .gallery-box .info-container p:nth-child(2).darkblue {
+  color: #086788;
+}
+.gallery .gallery-box .info-container p:nth-child(2).purple {
+  color: #885A9C;
+}
+.gallery .gallery-box .info-container p:nth-child(2).pink {
+  color: #F88BA8;
+}
+
+.modal h3 {
+  text-align: center;
+}
+.modal img {
+  width: 85%;
+  margin: 20px auto;
+  padding: 20px;
+  display: block;
+  border: 2px solid #555;
+}
+.modal .modal-body {
+  padding: 50px;
+}
+.modal .submitted-by {
+  text-align: center;
+}
+.modal .description {
+  font-style: italic;
+  color: #283618;
+  background-color: #A8DADC;
+  padding: 30px;
+}
+.modal .build-tags {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+  font-size: 15px;
+}
+.modal .build-tags p {
+  width: 25%;
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0;
+}
+.modal .build-tags p:first-child {
+  background-color: #B8CD59;
+}
+.modal .build-tags p:nth-child(2) {
+  background-color: #f7b267;
+}
+.modal .build-tags p:last-child {
+  background-color: #F88BA8;
+}
+
+.comments-container {
+  max-height: 300px;
+  overflow: scroll;
+  background-color: #F3F3F3;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+.comments-container p {
+  margin: 0;
+}
+.comments-container .comment {
+  background-color: #e9edc9;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+}
+.comments-container .comment h6 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  background-color: #283618;
+  color: #fff;
+  display: inline-block;
+  padding: 5px 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+.comments-container .comment p.comment-date {
+  color: #9D9D9D;
+  font-size: 14px;
+}
+.comments-container .comment .comment-form {
+  display: flex;
+  justify-content: flex-end;
+}
+.comments-container .comment .comment-form form {
+  margin: 0 20px;
+  text-align: right;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+}
+.modal-buttons form {
+  display: inline;
+  margin: 0 20px;
+  text-align: right;
+}

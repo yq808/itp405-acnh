@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('img_link');
             $table->string('creator_name');
             $table->string('creator_link');
-            $table->foreignId('theme_id');
             $table->string('description', 500);
+            $table->foreignId('theme_id');
             $table->foreignId('category_id');
-            $table->foreignId('user_id');
             $table->foreignId('season_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

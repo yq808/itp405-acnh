@@ -49,9 +49,7 @@ class CommentPolicy
      */
     public function create(User $user)
     {
-        // if (Auth::check()) {
-        //     return true;
-        // }
+        //
     }
 
     /**

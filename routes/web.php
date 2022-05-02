@@ -36,13 +36,14 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
     Route::get('/builds/new', [BuildController::class, 'create'])->name('build.create');
-    Route::post('/', [BuildController::class, 'store'])->name('build.store');
-    Route::get('/{id}/edit', [BuildController::class, 'edit'])->name('build.edit');
+    Route::post('/builds', [BuildController::class, 'store'])->name('build.store');
+    Route::get('/builds/{id}/edit', [BuildController::class, 'edit'])->name('build.edit');
     Route::post('/builds/{id}', [BuildController::class, 'update'])->name('build.update');
     Route::post('/builds/delete/{id}', [BuildController::class, 'delete'])->name('build.delete');
 
-    Route::post('/comments/{id}', [CommentController::class, 'store'])->name('comment.store');
-    Route::post('/comments/edit/{id}', [CommentController::class, 'edit'])->name('comment.edit');
+    Route::post('/comments/new/{id}', [CommentController::class, 'store'])->name('comment.store');
+    Route::get('/comments/edit/{id}', [CommentController::class, 'edit'])->name('comment.edit');
+    Route::post('/comments/{id}', [CommentController::class, 'update'])->name('comment.update');
     Route::post('/comments/delete/{id}', [CommentController::class, 'delete'])->name('comment.delete');
 
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorite.index');

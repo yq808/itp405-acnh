@@ -42,8 +42,12 @@ class CommentController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id, $creator)
+    public function update(Request $request, $id)
     {
+        if (Auth::user()->cannot('update', Comment::class)) {
+            abort(403);
+        }
+
         $request->validate([
             'comment' => 'required|min:5|max:500',
         ]);
@@ -56,12 +60,16 @@ class CommentController extends Controller
 
         return redirect()
             ->route('build.index')
-            ->with('success', "Your comment for " . $creator "'s build has been edited.");
+            ->with('success', "Your comment has been edited.");
     }
 
     public function delete($id)
     {
         $comment = Comment::find($id);
+
+        // if (Auth::user()->cannot('delete', $comment)) {
+        //     abort(403);
+        // }
 
         $comment->delete();
 

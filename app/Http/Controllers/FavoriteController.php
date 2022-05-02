@@ -51,23 +51,13 @@ class FavoriteController extends Controller
         return view('favorite.index', [
             'favorites' => $favorites,
             'comments' => $comments,
-            'user' => Auth::user(),
+            'user' => $user,
             'isCreators' => $isCreators,
         ]);
     }
 
     public function store($id)
     {
-        // $request->validate([
-        //     'id' => 'required|exists:builds,id',
-        // ]);
-
-        // if (count(Build::find($id)) == 0) {
-        //     return redirect()
-        //     ->route('favorite.index')
-        //     ->with('error', "The build does not exist.");
-        // }
-
         $exists = Favorite::where([
                 ['user_id', '=', Auth::user()->id],
                 ['build_id', '=', $id],
@@ -94,6 +84,10 @@ class FavoriteController extends Controller
     public function delete($id)
     {
         $favorite = Favorite::find($id);
+
+        if (Auth::user()->cannot('delete', $favorite)) {
+            abort(403);
+        }
 
         $favorite->delete();
 

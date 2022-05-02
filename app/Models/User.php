@@ -47,18 +47,13 @@ class User extends Authenticatable
         return $this->hasMany(Build::class);
     }
 
-    public function isAdmin()
-    {
-        return $this->is_admin == 1;
-    }
-
-    // public function isCreator()
-    // {
-
-    // }
-
     public function favorite()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin == 1;
     }
 }

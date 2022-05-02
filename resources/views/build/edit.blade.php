@@ -26,7 +26,7 @@
         </div>
         <div>
             <label class="form-label" for="image-link"> Image Link </label>
-            <textarea class="form-control" id="image-link" type="text" name="image-link" value="{{ old('image-link', $build->img_link) }}" placeholder="">{{ old('image-link', $build->img_link) }}</textarea>
+            <textarea class="form-control" id="image-link" type="text" name="image-link">{{ old('image-link', $build->img_link) }}</textarea>
             @error("image-link")
                 <small class="text-danger">{{$message}}</small>
             @enderror
@@ -48,7 +48,7 @@
     </div>
     <div>
         <label class="form-label" for="description"> Description </label>
-        <textarea class="form-control" id="description" type="text" name="description" value="" placeholder="">{{ old('description', $build->description)}}</textarea>
+        <textarea class="form-control" id="description" type="text" name="description">{{ old('description', $build->description)}}</textarea>
         @error("description")
             <small class="text-danger">{{$message}}</small>
         @enderror

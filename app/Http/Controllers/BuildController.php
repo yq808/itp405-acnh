@@ -81,6 +81,10 @@ class BuildController extends Controller
 
     public function edit($id)
     {
+        if (Auth::user()->cannot('update', Build::class)) {
+            abort(403);
+        }
+        
         $build = Build::with([
             'category', 'theme', 'season',
             ])
@@ -102,6 +106,7 @@ class BuildController extends Controller
 
     public function update($id, Request $request)
     {
+
         $request->validate([
             'image-link' => 'required|url',
             'creator-name' => 'required',
@@ -124,8 +129,6 @@ class BuildController extends Controller
         $build->season()->associate(Season::find($request->input('season')));
 
         $build->save();
-
-        $this->authorize('update', $build);
 
         return redirect()
             ->route('build.index')
@@ -186,7 +189,25 @@ class BuildController extends Controller
     {
         $build = Build::find($id);
 
+        // if (Auth::user()->cannot('delete', $build)) {
+        //     abort(403);
+        // }
+
         $build->delete();
+
+        $favorites = Favorite::where('build_id', '=', $id)->get();
+        if (count($favorites) != 0) {
+            foreach ($favorites as $favorite) {
+                $favorite->delete();
+            }
+        }
+
+        $comments = Comment::where('build_id', '=', $id)->get();
+        if (count($comments) != 0) {
+            foreach ($comments as $comment) {
+                $comment->delete();
+            }
+        }
 
         return redirect()
         ->route('profile.index')
