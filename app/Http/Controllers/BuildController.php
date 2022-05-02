@@ -16,8 +16,6 @@ class BuildController extends Controller
 {
     public function index()
     {
-        // $this->authorize('viewAny', Invoice::class);
-
         $builds = Build::with([
                     'category', 'theme', 'season', 'user'
                     ])
@@ -94,7 +92,7 @@ class BuildController extends Controller
             $categories = Category::orderBy('category', 'asc')->get();
             $seasons = Season::all();
 
-        // $this->authorize('update', $build);
+        $this->authorize('update', $build);
 
         return view ('build.edit', [
             'build' => $build,
