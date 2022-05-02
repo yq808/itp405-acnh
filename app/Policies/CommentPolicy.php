@@ -16,11 +16,17 @@ class CommentPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+
+    public function before(User $user)
     {
         if ($user->isAdmin()) {
             return true;
         }
+    }
+
+    public function viewAny(User $user)
+    {
+        //
     }
 
     /**

@@ -16,6 +16,8 @@ class BuildController extends Controller
 {
     public function index()
     {
+        // $this->authorize('viewAny', Invoice::class);
+
         $builds = Build::with([
                     'category', 'theme', 'season'
                     ])
